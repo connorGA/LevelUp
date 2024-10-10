@@ -5,6 +5,16 @@ ruby "3.1.0"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.3", ">= 7.1.3.4"
 
+# For authentication
+gem 'devise'
+
+# For caching and ActionCable
+gem 'redis'
+
+# React install
+gem 'react-rails'
+
+
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 
