@@ -1,8 +1,16 @@
-<h1>Your Plot</h1>
-<div id="plot-container" style="width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center;"></div>
+<div style="display: flex; height: 100vh;">
+  <!-- Sidebar or Options Section -->
+  <div style="width: 250px; background-color: #f5f5f5; padding: 20px;">
+    <h3>Customize Floor</h3>
+    <select id="floor-options" style="width: 100%;">
+      <option value="cobblestone_floor">Cobblestone Floor</option>
+      <option value="monastery_stone_floor">Monastery Stone</option>
+    </select>
+  </div>
 
-
-
+  <!-- Plot Container -->
+  <div id="plot-container" style="flex: 1; display: flex; align-items: center; justify-content: center;"></div>
+</div>
 
 <script type="module">
   console.log("Hello from show.html.erb");
@@ -10,4 +18,3 @@
 
 <%= javascript_include_tag "application", type: "module", "data-turbo-track": "reload", defer: true %>
 <%= tag.meta name: "turbo-visit-control", content: "reload" %>
-
