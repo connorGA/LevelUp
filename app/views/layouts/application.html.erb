@@ -6,10 +6,21 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
-  </head>
+    
+    <%= javascript_include_tag "application", type: "module", "data-turbo-track": "reload", defer: true %>
 
+
+
+    
+
+  </head>
   <body>
     <%= yield %>
   </body>
 </html>
+
+<script type="module">
+  console.log("Inline script loaded");
+</script>
+
+

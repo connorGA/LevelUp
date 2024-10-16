@@ -1,0 +1,17 @@
+<h1>Your Plot</h1>
+<div id="plot-container"></div>
+
+<style>
+  #plot-container {
+    width: 100%;
+    height: 600px;
+  }
+</style>
+
+<script type="module">
+  console.log("Hello from show.html.erb");
+</script>
+
+<%= javascript_include_tag "application", type: "module", "data-turbo-track": "reload", defer: true %>
+<%= tag.meta name: "turbo-visit-control", content: "reload" %>
+
