@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import textures, { createFloorMaterial } from "./textures.js";
+import textures, { createFloorMaterial, createWallMaterial } from "./textures.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("plot-container");
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const backWallGeometry = new THREE.PlaneGeometry(8, 8);
   const backWall = new THREE.Mesh(
     backWallGeometry,
-    new THREE.MeshBasicMaterial({ color: 0xa0a0a0 })
+    new THREE.MeshBasicMaterial({ color: 0xa0a0a0 }) // Default wall color
   );
   backWall.position.set(0, 4, -4);
   scene.add(backWall);
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const leftWallGeometry = new THREE.PlaneGeometry(8, 8);
   const leftWall = new THREE.Mesh(
     leftWallGeometry,
-    new THREE.MeshBasicMaterial({ color: 0xc0c0c0 })
+    new THREE.MeshBasicMaterial({ color: 0xc0c0c0 }) // Default wall color
   );
   leftWall.rotation.y = Math.PI / 2;
   leftWall.position.set(-4, 4, 0);
@@ -74,6 +74,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const selectedTexture = event.target.value;
     floor.material = createFloorMaterial(textures[selectedTexture]);
     floor.material.needsUpdate = true; // Ensure material updates
+  });
+
+  // Handle wall material change on selection
+  const wallSelect = document.getElementById("wall-options");
+  wallSelect.addEventListener("change", (event) => {
+    const selectedTexture = event.target.value;
+    const wallMaterial = createWallMaterial(textures[selectedTexture]);
+    
+    // Apply the selected texture to both walls
+    backWall.material = wallMaterial;
+    leftWall.material = wallMaterial;
+
+    // Ensure materials are updated
+    backWall.material.needsUpdate = true;
+    leftWall.material.needsUpdate = true;
   });
 
   // Handle window resizing
