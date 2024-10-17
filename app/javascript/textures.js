@@ -15,7 +15,21 @@ const textures = {
     normal: loader.load('/assets/textures/monastery_stone_floor/monastery_stone_floor_nor_gl_4k.exr'),
     roughness: loader.load('/assets/textures/monastery_stone_floor/monastery_stone_floor_rough_4k.exr'),
     displacement: loader.load('/assets/textures/monastery_stone_floor/monastery_stone_floor_disp_4k.png'),
-   }
+   },
+
+   sparse_grass: {
+    albedo: loader.load('/assets/textures/sparse_grass/sparse_grass_diff_4k.jpg'),
+    normal: loader.load('/assets/textures/sparse_grass/sparse_grass_nor_gl_4k.exr'),
+    roughness: loader.load('/assets/textures/sparse_grass/sparse_grass_rough_4k.exr'),
+    displacement: loader.load('/assets/textures/sparse_grass/sparse_grass_disp_4k.png'),
+   },
+
+   wood_floor: {
+    albedo: loader.load('/assets/textures/wood_floor/wood_floor_diff_4k.jpg'),
+    normal: loader.load('/assets/textures/wood_floor/wood_floor_nor_gl_4k.exr'),
+    roughness: loader.load('/assets/textures/wood_floor/wood_floor_rough_4k.exr'),
+    displacement: loader.load('/assets/textures/wood_floor/wood_floor_disp_4k.png'),
+   },
 };
 
 export function createFloorMaterial(textureSet) {
