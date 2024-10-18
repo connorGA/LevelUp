@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import textures, { createFloorMaterial, createWallMaterial } from "./textures.js";
+import loadFurniture from "./furniture.js";  // General furniture loader
 
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("plot-container");
@@ -43,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
   controls.dampingFactor = 0.05;
   controls.target.set(0, 4, 0);
 
-  // Create the floor geometry with subdivisions for displacement
+  // Create the floor geometry
   const floorGeometry = new THREE.PlaneGeometry(8, 8, 256, 256);
   let floorMaterial = new THREE.MeshStandardMaterial({ color: 0x808080 }); // Default grey material
   const floor = new THREE.Mesh(floorGeometry, floorMaterial);
@@ -81,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
   wallSelect.addEventListener("change", (event) => {
     const selectedTexture = event.target.value;
     const wallMaterial = createWallMaterial(textures[selectedTexture]);
-    
+
     // Apply the selected texture to both walls
     backWall.material = wallMaterial;
     leftWall.material = wallMaterial;
@@ -89,6 +90,15 @@ document.addEventListener("DOMContentLoaded", () => {
     // Ensure materials are updated
     backWall.material.needsUpdate = true;
     leftWall.material.needsUpdate = true;
+  });
+
+  // Handle furniture selection and addition
+  const furnitureSelect = document.getElementById("furniture-options");
+  const addFurnitureButton = document.getElementById("add-furniture");
+
+  addFurnitureButton.addEventListener("click", () => {
+    const selectedFurniture = furnitureSelect.value;
+    loadFurniture(selectedFurniture, scene, camera, renderer, controls);  // General furniture loading
   });
 
   // Handle window resizing
