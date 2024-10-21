@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { DragControls } from "three/examples/jsm/controls/DragControls.js";
 import textures, { createFloorMaterial, createWallMaterial } from "./textures.js";
 import loadFurniture from "./furniture.js";  // General furniture loader
 
@@ -69,6 +70,9 @@ document.addEventListener("DOMContentLoaded", () => {
   leftWall.position.set(-4, 4, 0);
   scene.add(leftWall);
 
+  // Array to hold draggable furniture objects
+  const furnitureObjects = [];
+
   // Handle floor material change on selection
   const floorSelect = document.getElementById("floor-options");
   floorSelect.addEventListener("change", (event) => {
@@ -96,9 +100,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const furnitureSelect = document.getElementById("furniture-options");
   const addFurnitureButton = document.getElementById("add-furniture");
 
+  // Pass scene, camera, renderer, and controls to loadFurniture
   addFurnitureButton.addEventListener("click", () => {
     const selectedFurniture = furnitureSelect.value;
-    loadFurniture(selectedFurniture, scene, camera, renderer, controls);  // General furniture loading
+    loadFurniture(selectedFurniture, scene, camera, renderer, controls, (model) => {
+      furnitureObjects.push(model); // Add the loaded furniture to draggable objects
+    });
+  });
+
+  // Add DragControls for furniture dragging
+  const dragControls = new DragControls(furnitureObjects, camera, renderer.domElement);
+  dragControls.addEventListener('dragstart', (event) => {
+    controls.enabled = false; // Disable orbit controls while dragging
+  });
+
+  dragControls.addEventListener('dragend', (event) => {
+    controls.enabled = true; // Enable orbit controls after dragging
   });
 
   // Handle window resizing
