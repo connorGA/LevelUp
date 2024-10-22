@@ -1,9 +1,9 @@
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { TransformControls } from 'three/examples/jsm/controls/TransformControls.js';
 import * as THREE from 'three';
 
 const loader = new GLTFLoader();
 let activeObject = null; // Keep track of the currently selected object
+let mode = 'translate'; // Default mode is translate
 
 // Object to store all furniture paths
 const furnitureModels = {
@@ -53,51 +53,57 @@ function loadFurniture(furnitureName, scene, camera, renderer, controls, onLoadC
     model.userData.isDraggable = true; // Mark it as draggable
     scene.add(model);
 
-    // Ensure that the loaded model is a valid THREE.Object3D
-    if (model instanceof THREE.Object3D) {
-      setupTransformControls(model, scene, camera, renderer, controls);  // Attach the root object to TransformControls
-      if (onLoadCallback) onLoadCallback(model); // Optional callback after model loads
-    } else {
-      console.error("Loaded model is not a valid THREE.Object3D.");
-    }
+    // Manually handle drag and rotate functionality
+    setupManualTransform(model, scene, camera, renderer, controls);
+
+    if (onLoadCallback) onLoadCallback(model); // Optional callback after model loads
   }, undefined, (error) => {
     console.error('An error occurred while loading the model:', error);
   });
 }
 
-// Function to set up transform controls (drag and rotate)
-function setupTransformControls(object, scene, camera, renderer, controls) {
-  const transformControls = new TransformControls(camera, renderer.domElement);
-  scene.add(transformControls);
-
-  // Attach the object (ensure it's a valid Object3D, e.g., Group or Mesh)
-  transformControls.attach(object);
-
-  // Listen to controls change to update the scene
-  transformControls.addEventListener('change', () => {
+// Function to manually handle dragging and rotating
+function setupManualTransform(object, scene, camera, renderer, controls) {
+  // Add event listeners for dragging or rotating based on the current mode
+  window.addEventListener('keydown', (event) => {
+    if (mode === 'rotate') {
+      if (event.code === 'ArrowLeft') {
+        object.rotation.y += 0.05; // Rotate left
+      } else if (event.code === 'ArrowRight') {
+        object.rotation.y -= 0.05; // Rotate right
+      }
+    } else if (mode === 'translate') {
+      // Clamping movement during translate mode
+      clampPosition(object.position);
+    }
     controls.update();
     renderer.render(scene, camera);
-
-    // Clamp position to ensure it doesn't go out of room bounds
-    clampPosition(object.position);
-
-    console.log('Group position after transformation:', object.position);
+    console.log('Object position after transformation:', object.position);
+    console.log('Object rotation after transformation:', object.rotation);
   });
 
-  // Set up key controls: translate (drag) or rotate with keys (e.g., Q for translate, E for rotate)
+  // Set up key controls to switch between translate and rotate
   window.addEventListener('keydown', (event) => {
     switch (event.code) {
-      case 'KeyQ': // Translate mode (drag)
-        transformControls.setMode('translate');
+      case 'KeyQ': // Translate mode
+        mode = 'translate';
+        updateModeIndicator('translate');
         break;
       case 'KeyE': // Rotate mode
-        transformControls.setMode('rotate');
+        mode = 'rotate';
+        updateModeIndicator('rotate');
         break;
     }
   });
 
-  // Update active object for potential future use
-  activeObject = object;
+  // Mode indicator
+  const modeIndicator = document.getElementById("mode-indicator");
+  
+  function updateModeIndicator(currentMode) {
+    modeIndicator.textContent = currentMode === 'translate'
+      ? "Mode: Translate (Press 'E' to Rotate)"
+      : "Mode: Rotate (Press 'Q' to Translate)";
+  }
 }
 
-export default loadFurniture;  // General export for loading furniture
+export default loadFurniture;
