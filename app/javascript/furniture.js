@@ -8,7 +8,7 @@ let mode = 'translate'; // Default mode is translate
 // Object to store all furniture paths
 const furnitureModels = {
   sofa: '/assets/furniture/sofa_02/sofa_02_4k.gltf',
-  chair: '/assets/furniture/chair_01/chair_01_4k.gltf',
+  coffeeTable01: '/assets/furniture/coffeeTable_01/CoffeeTable_01_4k.gltf',
   table: '/assets/furniture/table_01/table_01_4k.gltf',
   // Add more furniture items here...
 };
@@ -40,15 +40,21 @@ function loadFurniture(furnitureName, scene, camera, renderer, controls, onLoadC
     // Debugging to check model
     console.log('Loaded model:', model);
 
-    // Reset position to a valid one
-    model.position.set(0, 0, 0);
+    // Traverse through the model and ensure material color or texture is set
+    model.traverse((child) => {
+      if (child.isMesh) {
+        if (!child.material.map) {
+          // If the mesh doesn't have a texture map, apply a default color
+          child.material.color = new THREE.Color(0x0000FF); // Default blue color
+        }
 
-    // Check if the model has children (e.g., meshes) and fix their positions if necessary
-    model.children.forEach((child) => {
-      if (child instanceof THREE.Mesh) {
-        child.position.set(0, 0, 0); // Set a valid position for the meshes
+        // Ensure the material's properties are set correctly
+        child.material.needsUpdate = true;  // Make sure the material updates
       }
     });
+
+    // Reset position to a valid one
+    model.position.set(0, 0, 0);
 
     model.userData.isDraggable = true; // Mark it as draggable
     scene.add(model);

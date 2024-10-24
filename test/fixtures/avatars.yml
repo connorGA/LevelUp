@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  outfit: MyString
+  accessories: MyString
+
+two:
+  user: two
+  outfit: MyString
+  accessories: MyString

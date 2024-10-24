@@ -1,10 +1,36 @@
-<h1>Welcome to LevelUp!</h1>
+<div class="experience-bar">
+  <div class="level-indicator">
+    Level: <%= @user.level %>
+  </div>
+  <div class="exp-bar">
+    <div class="exp-progress" style="width: <%= @user.exp_percentage %>%;">
+      EXP: <%= @user.exp %>/<%= @user.exp_required %>
+    </div>
+  </div>
+</div>
 
-<% if user_signed_in? %>
-  <p>Hello, <%= current_user.username %>!</p>
-  <%= link_to 'Log out', destroy_user_session_path, method: :delete, data: { turbo: false } %>
+<div class="main-container">
+  <!-- Avatar and Plot Section -->
+  <div class="interactive-landscape">
+    <div id="avatar-section">
+      <h2>Your Avatar</h2>
+      <div id="avatar"></div>
+    </div>
 
-<% else %>
-  <%= link_to 'Sign up', new_user_registration_path %> |
-  <%= link_to 'Log in', new_user_session_path %>
-<% end %>
+    <div id="plot-section">
+      <h2>Your Plot</h2>
+      <div id="plot"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Collapsible Menu -->
+<nav class="menu">
+  <button class="menu-toggle">☰</button>
+  <ul>
+    <li><a href="#">Manage Tasks</a></li>
+    <li><a href="#">Customize Avatar</a></li>
+    <li><a href="#">Customize Plot</a></li>
+    <li><a href="#">View Friends</a></li>
+  </ul>
+</nav>
