@@ -1,11 +1,11 @@
-<div class="experience-bar">
-  <div class="level-indicator">
-    Level: <%= @user.level %>
-  </div>
-  <div class="exp-bar">
-    <div class="exp-progress" style="width: <%= @user.exp_percentage %>%;">
-      EXP: <%= @user.exp %>/<%= @user.exp_required %>
-    </div>
+<div class="user-info">
+  <h2 class="username">Welcome, <%= @user.username %>!</h2>
+  <p class="level">Level: <%= @user.level %></p>
+</div>
+
+<div class="exp-bar">
+  <div class="exp-progress" style="width: <%= @user.exp_percentage %>%;">
+    <span class="exp-text">EXP: <%= @user.exp %> / <%= @user.exp_required %></span>
   </div>
 </div>
 
@@ -26,7 +26,7 @@
 
 <!-- Collapsible Menu -->
 <nav class="menu">
-  <button class="menu-toggle">☰</button>
+  <button class="menu-toggle">☰ Menu</button>
   <ul>
     <li><a href="#">Manage Tasks</a></li>
     <li><a href="#">Customize Avatar</a></li>
