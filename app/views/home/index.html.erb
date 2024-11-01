@@ -1,36 +1,39 @@
-<div class="user-info">
-  <h2 class="username">Welcome, <%= @user.username %>!</h2>
-  <p class="level">Level: <%= @user.level %></p>
-</div>
+<div class="app-container">
+  <!-- Main Content Carousel -->
+  <div class="carousel-container">
+    <section id="tasks" class="carousel-page"> <!-- Tasks Section -->
+      <h2>Manage Tasks</h2>
+      <!-- Task management interface goes here -->
+    </section>
 
-<div class="exp-bar">
-  <div class="exp-progress" style="width: <%= @user.exp_percentage %>%;">
-    <span class="exp-text">EXP: <%= @user.exp %> / <%= @user.exp_required %></span>
+    <section id="avatar" class="carousel-page"> <!-- Avatar Section -->
+      <h2>Customize Avatar</h2>
+      <!-- Avatar customization interface goes here -->
+    </section>
+
+    <section id="plot" class="carousel-page"> <!-- Plot Section -->
+      <h2>Customize Plot</h2>
+      <!-- Plot customization interface goes here -->
+    </section>
+
+    <section id="friends" class="carousel-page"> <!-- Friends Section -->
+      <h2>View Friends</h2>
+      <!-- Friends viewing interface goes here -->
+    </section>
+
+    <section id="shop" class="carousel-page"> <!-- Shop Section -->
+      <h2>Shop</h2>
+      <!-- Shop interface goes here -->
+    </section>
   </div>
-</div>
 
-<div class="main-container">
-  <!-- Avatar and Plot Section -->
-  <div class="interactive-landscape">
-    <div id="avatar-section">
-      <h2>Your Avatar</h2>
-      <div id="avatar"></div>
-    </div>
-
-    <div id="plot-section">
-      <h2>Your Plot</h2>
-      <div id="plot"></div>
-    </div>
+  <!-- Bottom Navigation Bar -->
+  <div class="bottom-nav">
+    <button class="active">Manage Tasks</button>
+    <button>Customize Avatar</button>
+    <button>Customize Plot</button>
+    <button>View Friends</button>
+    <button>Shop</button> <!-- Updated from "Settings" to "Shop" -->
   </div>
-</div>
 
-<!-- Collapsible Menu -->
-<nav class="menu">
-  <button class="menu-toggle">☰ Menu</button>
-  <ul>
-    <li><a href="#">Manage Tasks</a></li>
-    <li><a href="#">Customize Avatar</a></li>
-    <li><a href="#">Customize Plot</a></li>
-    <li><a href="#">View Friends</a></li>
-  </ul>
-</nav>
+</div>
