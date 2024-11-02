@@ -2,7 +2,7 @@
   <!-- Main Content Carousel -->
   <div class="carousel-container">
     <section id="tasks" class="carousel-page"> <!-- Tasks Section -->
-      <h2>Manage Tasks</h2>
+      <h2>Tasks</h2>
       <!-- Task management interface goes here -->
     </section>
 
@@ -11,9 +11,9 @@
       <!-- Avatar customization interface goes here -->
     </section>
 
-    <section id="plot" class="carousel-page"> <!-- Plot Section -->
+    <section id="plot-page" class="carousel-page"> <!-- Plot Section -->
       <h2>Customize Plot</h2>
-      <!-- Plot customization interface goes here -->
+      <%= render 'plots/show' %> <!-- This will load the plot customizer -->
     </section>
 
     <section id="friends" class="carousel-page"> <!-- Friends Section -->
@@ -29,11 +29,10 @@
 
   <!-- Bottom Navigation Bar -->
   <div class="bottom-nav">
-    <button class="active">Manage Tasks</button>
-    <button>Customize Avatar</button>
-    <button>Customize Plot</button>
-    <button>View Friends</button>
-    <button>Shop</button> <!-- Updated from "Settings" to "Shop" -->
+    <button class="active">Tasks</button>
+    <button>Avatar</button>
+    <button>Plot</button>
+    <button>Friends</button>
+    <button>Shop</button> 
   </div>
-
 </div>

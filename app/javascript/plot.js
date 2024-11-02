@@ -4,7 +4,7 @@ import { DragControls } from "three/examples/jsm/controls/DragControls.js";
 import textures, { createFloorMaterial, createWallMaterial } from "./textures.js";
 import loadFurniture from "./furniture.js";  // General furniture loader
 
-document.addEventListener("DOMContentLoaded", () => {
+export default function initializePlot() {
   const container = document.getElementById("plot-container");
   if (!container) return;
 
@@ -135,4 +135,4 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   animate();
-});
+}
