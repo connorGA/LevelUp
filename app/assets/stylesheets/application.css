@@ -17,8 +17,7 @@ body, html {
   color: #fff;
 }
 
-.level-indicator,
-.exp-bar {
+.level-indicator, .exp-bar {
   flex: 1;
 }
 
@@ -33,9 +32,9 @@ body, html {
 /* Carousel Styling */
 .carousel-container {
   display: flex;
-  width: 500vw; 
+  width: 500vw;
   transition: transform 0.3s ease;
-  height: calc(100vh - 60px); 
+  height: calc(100vh - 60px);
 }
 
 .carousel-page {
@@ -43,7 +42,7 @@ body, html {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh; /* Take up full viewport height */
+  min-height: 100vh;
   font-size: 24px;
   color: #333;
   background-color: #f5f5f5;
@@ -81,13 +80,13 @@ body, html {
 
 .bottom-nav button.active {
   background-color: #666;
-  color: #ffdd57; /* Gold color for emphasis */
+  color: #ffdd57;
   font-weight: bold;
   flex: 1.2;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Customization Dropdown Styles */
+/* Customization Toggle Button */
 #customization-toggle {
   background-color: #027efb;
   background-image: linear-gradient(315deg, #027efb 0%, #00acee 74%);
@@ -100,7 +99,7 @@ body, html {
   font-size: 16px;
   font-weight: bold;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -115,21 +114,17 @@ body, html {
   height: 0;
   bottom: 0;
   left: 0;
-  border-radius: 5px;
+  border-radius: 8px;
   background-color: #3ec1f3;
   background-image: linear-gradient(315deg, #3ec1f3 0%, #72d4f6 74%);
-  box-shadow: 
-    -7px -7px 20px 0px rgba(255, 255, 255, 0.9),
-    -4px -4px 5px 0px rgba(255, 255, 255, 0.9),
-    7px 7px 20px 0px rgba(0, 0, 0, 0.2),
-    4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: -7px -7px 20px rgba(255, 255, 255, 0.9), -4px -4px 5px rgba(255, 255, 255, 0.9), 7px 7px 20px rgba(0, 0, 0, 0.2), 4px 4px 5px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   z-index: -1;
 }
 
 #customization-toggle:hover {
   color: #fff;
-  transform: scale(1.05); /* Slight enlargement */
+  transform: scale(1.05);
 }
 
 #customization-toggle:hover:after {
@@ -138,50 +133,95 @@ body, html {
 }
 
 #customization-toggle:active {
-  transform: scale(1); /* Reset scale on active */
-  top: 2px;
+  transform: scale(1);
 }
 
+/* Plot Customization Options */
+#plot-page-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
 
+#plot-customization {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-
-
+#customization-menu {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+}
 
 #customization-options {
   display: none;
-  background-color: #fff;
-  border-radius: 8px;
+  background: linear-gradient(315deg, #e3f9f5 0%, #a8edea 74%);
+  border-radius: 10px;
   padding: 20px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+  margin-top: 10px;
+  width: 200px;
 }
 
-#customization-options h3 {
+.customize-section {
+  margin-bottom: 15px;
+}
+
+.customize-section h3 {
   font-size: 16px;
-  color: #333;
+  color: #027efb;
   margin-top: 0;
 }
 
-#customization-options select,
-#add-furniture {
+#customization-options select {
   width: 100%;
   padding: 10px;
   margin-top: 10px;
   border: 1px solid #ddd;
-  border-radius: 5px;
+  border-radius: 8px;
   font-size: 14px;
   color: #333;
   background-color: #f9f9f9;
   transition: all 0.3s ease;
 }
 
-/* Furniture Button */
+/* Add Furniture Button */
 #add-furniture {
-  background-color: #4caf50;
+  background-color: #03c8a8;
   color: #fff;
   font-weight: bold;
   cursor: pointer;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
 }
 
 #add-furniture:hover {
-  background-color: #45a049;
+  background-color: #02a896;
+}
+
+#mode-indicator {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 14px;
+  border-radius: 5px;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+#plot-container {
+  width: 100vw;
+  height: calc(100vh - 60px);
 }
