@@ -6,14 +6,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const pages = Array.from(document.querySelectorAll(".carousel-page"));
 
     let currentIndex = 0;
+    let plotInitialized = false; // Flag to track plot initialization
 
     function updateCarousel(index) {
         carouselContainer.style.transform = `translateX(-${index * 100}vw)`;
         buttons.forEach((button, i) => button.classList.toggle("active", i === index));
-        
-        // Initialize plot only when "Customize Plot" section is in view
-        if (index === 2) { // Assuming "Plot" is at index 2
-            initializePlot(); // Initialize plot when entering Plot section
+
+        if (index === 2 && !plotInitialized) {
+            initializePlot(); // Initialize plot only once
+            plotInitialized = true; // Set flag to true after initialization
+        } else if (index !== 2 && plotInitialized) {
+            // Clear the plot from `plot-container` if navigating away from plot-page
+            const plotContainer = document.getElementById("plot-container");
+            if (plotContainer) {
+                plotContainer.innerHTML = ''; // Remove plot elements
+            }
+            plotInitialized = false; // Reset the flag
         }
     }
 
