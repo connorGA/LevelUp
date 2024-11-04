@@ -9,7 +9,7 @@
       </button>
 
       <div id="customization-options">
-        <h3>Customize Floor</h3>
+        <h3>Floor</h3>
         <select id="floor-options">
           <option value="cobblestone_floor">Cobblestone Floor</option>
           <option value="monastery_stone_floor">Monastery Stone</option>
@@ -17,20 +17,30 @@
           <option value="wood_floor">Wood Floor</option>
         </select>
 
-        <h3>Customize Walls</h3>
+        <h3>Walls</h3>
         <select id="wall-options">
           <option value="wooden_garage_door">Wooden Garage</option>
           <option value="stone_wall">Stone Wall</option>
           <option value="wooden_wall">Wooden Wall</option>
         </select>
 
-        <h3>Furniture Catalog</h3>
+        <h3>Furniture</h3>
         <select id="furniture-options">
           <option value="sofa">Sofa</option>
           <option value="coffeeTable01">Coffee Table - Blue</option>
           <option value="table">Table</option>
         </select>
         <button id="add-furniture" title="Add Furniture">+</button>
+
+        <!-- New Background Customization -->
+        <h3>Background</h3>
+        <select id="background-options">
+          <option value="white">White</option>
+          <option value="lightblue">Light Blue</option>
+          <option value="lightgray">Light Gray</option>
+          <option value="lightgreen">Light Green</option>
+          <option value="beige">Beige</option>
+        </select>
       </div>
     </div>
 
@@ -43,22 +53,25 @@
 </div>
 
 
+
 <script type="module">
   console.log("Hello from show.html.erb");
 
   document.addEventListener("DOMContentLoaded", () => {
     const toggleButton = document.getElementById("customization-toggle");
     const options = document.getElementById("customization-options");
+    const plotContainer = document.getElementById("plot-container");
 
     toggleButton.addEventListener("click", () => {
-      // Get the current computed display value of the dropdown
       const isHidden = window.getComputedStyle(options).display === "none";
-
-      // Toggle the display based on the computed style
       options.style.display = isHidden ? "block" : "none";
-
-      // Toggle the active class to rotate the arrow correctly
       toggleButton.classList.toggle("active", isHidden);
+    });
+
+    // Listen for background color selection change
+    const backgroundSelect = document.getElementById("background-options");
+    backgroundSelect.addEventListener("change", (event) => {
+      plotContainer.style.backgroundColor = event.target.value;
     });
   });
 
