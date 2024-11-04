@@ -3,7 +3,11 @@
   <div id="plot-customization">
     <!-- Dropdown Toggle Button and Options -->
     <div id="customization-menu">
-      <button id="customization-toggle"><span>Customize Plot</span></button>
+      <button id="customization-toggle">
+        <span class="button-text">Customize Plot</span>
+        <span class="button-arrow">∴</span>
+      </button>
+
       <div id="customization-options">
         <h3>Customize Floor</h3>
         <select id="floor-options">
@@ -43,16 +47,22 @@
   console.log("Hello from show.html.erb");
 
   document.addEventListener("DOMContentLoaded", () => {
-    // Check if we're on the plot page in the carousel
-    const plotPage = document.querySelector('#plot-page-content');
-    if (plotPage && plotPage.classList.contains('carousel-page')) {
-      // Toggle customization dropdown
-      document.getElementById("customization-toggle").addEventListener("click", () => {
-        const options = document.getElementById("customization-options");
-        options.style.display = options.style.display === "none" ? "block" : "none";
-      });
-    }
+    const toggleButton = document.getElementById("customization-toggle");
+    const options = document.getElementById("customization-options");
+
+    toggleButton.addEventListener("click", () => {
+      // Get the current computed display value of the dropdown
+      const isHidden = window.getComputedStyle(options).display === "none";
+
+      // Toggle the display based on the computed style
+      options.style.display = isHidden ? "block" : "none";
+
+      // Toggle the active class to rotate the arrow correctly
+      toggleButton.classList.toggle("active", isHidden);
+    });
   });
+
+
 </script>
 
 <%= javascript_include_tag "application", type: "module", "data-turbo-track": "reload", defer: true %>

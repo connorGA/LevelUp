@@ -91,7 +91,7 @@ body, html {
   background-color: #027efb;
   background-image: linear-gradient(315deg, #027efb 0%, #00acee 74%);
   color: #fff;
-  width: 130px;
+  width: 160px;
   height: 40px;
   display: inline-flex;
   align-items: center;
@@ -105,6 +105,20 @@ body, html {
   overflow: hidden;
   z-index: 1;
   transition: all 0.3s ease;
+}
+
+#customization-toggle .button-text {
+  margin-right: 8px; /* Space between text and arrow */
+}
+
+#customization-toggle .button-arrow {
+  font-size: 18px; /* Adjust arrow size */
+  transition: transform 0.3s ease;
+}
+
+/* Rotate arrow on click */
+#customization-toggle.active .button-arrow {
+  transform: rotate(180deg);
 }
 
 #customization-toggle:after {
