@@ -1,0 +1,122 @@
+<h1 class="page-title">Your Tasks</h1>
+
+<div id="task-list">
+  <% if @tasks.any? %>
+    <% @tasks.each do |task| %>
+      <div class="task">
+        <div class="task-header">
+          <h3 class="task-title"><%= task.title %></h3>
+          <span class="task-frequency"><%= task.frequency.capitalize %></span>
+        </div>
+        <p class="task-description"><%= task.description %></p>
+        <p class="task-duration">Duration: <%= task.duration %> minutes</p>
+        <p class="task-status">Status: <%= task.completed ? "Completed" : "Pending" %></p>
+        <p class="task-exp">EXP Reward: <%= task.calculate_exp %></p>
+
+        <% if task.completed %>
+          <button data-task-id="<%= task.id %>" class="reset-task action-button">Reset Task</button>
+        <% else %>
+          <button data-task-id="<%= task.id %>" class="complete-task action-button">Complete Task</button>
+        <% end %>
+      </div>
+    <% end %>
+  <% else %>
+    <p class="no-tasks">No tasks available. Create a new task to get started!</p>
+  <% end %>
+</div>
+
+<h2 class="form-title">Create a New Task</h2>
+<form id="new-task-form" class="task-form">
+  <input type="text" name="name" placeholder="Task Name" required>
+  <textarea name="description" placeholder="Task Description" class="input-field"></textarea>
+  <select name="frequency" class="input-field" required>
+    <option value="daily">Daily</option>
+    <option value="weekly">Weekly</option>
+    <option value="monthly">Monthly</option>
+    <option value="yearly">Yearly</option>
+  </select>
+  <input type="number" name="duration" placeholder="Duration (minutes)" class="input-field" required>
+  <button type="submit" class="submit-button">Create Task</button>
+</form>
+
+<div id="messages" class="messages"></div>
+
+<script>
+// Task creation 
+// Handle task creation
+document.getElementById("new-task-form").addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  // Wrap the form data in a `task` object to match Rails expectations
+  const formData = new FormData(event.target);
+  const taskData = {
+    task: Object.fromEntries(formData.entries())
+  };
+
+  fetch("/tasks", {
+    method: "POST",
+    headers: { 
+      "X-CSRF-Token": document.querySelector("meta[name='csrf-token']").content,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(taskData)
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.task) {
+      document.getElementById("messages").textContent = data.message;
+      location.reload(); // Refresh to show the new task
+    } else {
+      document.getElementById("messages").textContent = data.errors.join(", ");
+    }
+  });
+});
+
+
+
+
+
+
+
+// Handle task completion
+document.querySelectorAll(".complete-task").forEach(button => {
+  button.addEventListener("click", () => {
+    const taskId = button.dataset.taskId;
+
+    fetch(`/tasks/${taskId}/complete`, {
+      method: "POST",
+      headers: { "X-CSRF-Token": document.querySelector("meta[name='csrf-token']").content }
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.task) {
+        document.getElementById("messages").textContent = data.message;
+        location.reload();
+      } else {
+        document.getElementById("messages").textContent = data.error;
+      }
+    });
+  });
+});
+
+// Handle task reset
+document.querySelectorAll(".reset-task").forEach(button => {
+  button.addEventListener("click", () => {
+    const taskId = button.dataset.taskId;
+
+    fetch(`/tasks/${taskId}/reset`, {
+      method: "POST",
+      headers: { "X-CSRF-Token": document.querySelector("meta[name='csrf-token']").content }
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.task) {
+        document.getElementById("messages").textContent = data.message;
+        location.reload();
+      } else {
+        document.getElementById("messages").textContent = data.error;
+      }
+    });
+  });
+});
+</script>

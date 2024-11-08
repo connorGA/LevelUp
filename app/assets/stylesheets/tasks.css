@@ -1,0 +1,128 @@
+/* General Page Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+  }
+  
+  .page-title, .form-title {
+    font-size: 24px;
+    color: #027efb;
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  /* Task List Styling */
+  #task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 20px auto;
+    max-width: 600px;
+  }
+  
+  .task {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .task:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .task-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .task-title {
+    font-size: 18px;
+    color: #027efb;
+  }
+  
+  .task-frequency {
+    font-size: 0.9em;
+    padding: 4px 8px;
+    border-radius: 5px;
+    background-color: #e3f3ff;
+    color: #027efb;
+  }
+  
+  .task-description,
+  .task-duration,
+  .task-status,
+  .task-exp {
+    font-size: 0.9em;
+    margin: 5px 0;
+    color: #555;
+  }
+  
+  .no-tasks {
+    text-align: center;
+    color: #666;
+  }
+  
+  /* Action Buttons */
+  .action-button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+  }
+  
+  .action-button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Form Styling */
+  .task-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px auto;
+    max-width: 600px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .input-field {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .submit-button {
+    background-color: #027efb;
+    color: #fff;
+    font-size: 1em;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: #0267d4;
+  }
+  
+  /* Messages */
+  .messages {
+    text-align: center;
+    margin-top: 15px;
+    color: #d9534f;
+  }
+  
