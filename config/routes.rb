@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
 
   # Tasks
-  resources :tasks, only: [:index, :show, :create, :update] do
+  resources :tasks, only: [:index, :show, :create, :update, :destroy] do
     member do
       post 'complete'
       post 'reset'

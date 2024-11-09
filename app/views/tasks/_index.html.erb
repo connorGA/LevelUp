@@ -13,6 +13,12 @@
         <p class="task-status">Status: <%= task.completed ? "Completed" : "Pending" %></p>
         <p class="task-exp">EXP Reward: <%= task.calculate_exp %></p>
 
+        <!-- Edit Button -->
+        <button data-task-id="<%= task.id %>" class="edit-task">Edit</button>
+
+        <!-- Delete Button -->
+        <button data-task-id="<%= task.id %>" class="delete-task">Delete</button>
+
         <% if task.completed %>
           <button data-task-id="<%= task.id %>" class="reset-task action-button">Reset Task</button>
         <% else %>
@@ -42,7 +48,6 @@
 <div id="messages" class="messages"></div>
 
 <script>
-// Task creation 
 // Handle task creation
 document.getElementById("new-task-form").addEventListener("submit", function(event) {
   event.preventDefault();
@@ -71,10 +76,6 @@ document.getElementById("new-task-form").addEventListener("submit", function(eve
     }
   });
 });
-
-
-
-
 
 
 
@@ -117,6 +118,61 @@ document.querySelectorAll(".reset-task").forEach(button => {
         document.getElementById("messages").textContent = data.error;
       }
     });
+  });
+});
+
+// Handle task edit
+document.querySelectorAll(".edit-task").forEach(button => {
+  button.addEventListener("click", () => {
+    const taskId = button.dataset.taskId;
+    const newTitle = prompt("Enter new task title:");
+    const newDescription = prompt("Enter new task description:");
+    const newDuration = prompt("Enter new duration (in minutes):");
+
+    fetch(`/tasks/${taskId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-Token": document.querySelector("meta[name='csrf-token']").content
+      },
+      body: JSON.stringify({
+        task: {
+          title: newTitle,
+          description: newDescription,
+          duration: newDuration
+        }
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.task) {
+        alert("Task updated successfully!");
+        location.reload();
+      } else {
+        alert("Error: " + data.errors.join(", "));
+      }
+    });
+  });
+});
+
+// Handle task delete
+document.querySelectorAll(".delete-task").forEach(button => {
+  button.addEventListener("click", () => {
+    const taskId = button.dataset.taskId;
+
+    if (confirm("Are you sure you want to delete this task?")) {
+      fetch(`/tasks/${taskId}`, {
+        method: "DELETE",
+        headers: {
+          "X-CSRF-Token": document.querySelector("meta[name='csrf-token']").content
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert(data.message);
+        location.reload();
+      });
+    }
   });
 });
 </script>

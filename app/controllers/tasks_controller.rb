@@ -61,6 +61,15 @@ class TasksController < ApplicationController
     def task_params
         params.require(:task).permit(:name, :title, :description, :frequency, :duration)
     end
+
+    def destroy
+        if @task.destroy
+          render json: { message: "Task deleted successfully" }
+        else
+          render json: { error: "Task could not be deleted" }, status: :unprocessable_entity
+        end
+    end
+      
       
   end
   
