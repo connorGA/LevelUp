@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
     before_action :authenticate_user! # Ensure user is logged in
-    before_action :set_task, only: [:show, :update, :complete, :reset] # Add :update here
+    before_action :set_task, only: [:show, :update, :complete, :reset, :destroy]  
   
     # GET /tasks
     def index
@@ -49,6 +49,15 @@ class TasksController < ApplicationController
         render json: { error: "Task could not be reset" }, status: :unprocessable_entity
       end
     end
+
+    def destroy
+        if @task.destroy
+          render json: { message: "Task deleted successfully" }
+        else
+          render json: { error: "Task could not be deleted" }, status: :unprocessable_entity
+        end
+    end
+      
   
     private
   
@@ -62,14 +71,6 @@ class TasksController < ApplicationController
         params.require(:task).permit(:name, :title, :description, :frequency, :duration)
     end
 
-    def destroy
-        if @task.destroy
-          render json: { message: "Task deleted successfully" }
-        else
-          render json: { error: "Task could not be deleted" }, status: :unprocessable_entity
-        end
-    end
-      
       
   end
   

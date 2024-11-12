@@ -12,7 +12,7 @@ class Task < ApplicationRecord
                when "monthly" then 200
                when "yearly" then 1000
                end
-    base_exp + (duration * 2) # Adjust multiplier as needed
+    base_exp + ((duration || 0) * 2) # Default to 0 if duration is nil
   end
 
   # Mark task as completed and award EXP to user
