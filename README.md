@@ -29,3 +29,9 @@
     - GIMP: A free, open-source alternative to Photoshop. It’s powerful for creating detailed graphics and pixel art if you want to create avatars and items.
     - Inkscape: For vector graphics (like scalable icons or simple character designs), Inkscape is free and versatile.
     - Blender: If you want to experiment with 3D elements, Blender is a free and powerful tool for creating 3D models that you could potentially render into 2D sprites for your app.
+
+
+
+
+# Features to add
+- Task page calendar(similar to older React one built with seasons). Green highlighted days show corresponding with a selected task, or for all tasks

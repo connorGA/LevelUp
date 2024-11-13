@@ -9,7 +9,17 @@
           <span class="task-frequency"><%= task.frequency.capitalize %></span>
         </div>
         <p class="task-description"><%= task.description %></p>
-        <p class="task-duration">Duration: <%= task.duration %> minutes</p>
+        
+        <!-- Conditionally Display Duration Based on Duration Type -->
+        <p class="task-duration">
+          Duration:
+          <% if task.duration_type == "timed" %>
+            <%= task.duration %> minutes
+          <% else %>
+            Complete/Incomplete
+          <% end %>
+        </p>
+        
         <p class="task-status">Status: <%= task.completed ? "Completed" : "Pending" %></p>
         <p class="task-exp">EXP Reward: <%= task.calculate_exp %></p>
 
@@ -31,17 +41,30 @@
   <% end %>
 </div>
 
+
 <h2 class="form-title">Create a New Task</h2>
 <form id="new-task-form" class="task-form">
   <input type="text" name="task[name]" placeholder="Task Name" required>
   <textarea name="task[description]" placeholder="Task Description" class="input-field"></textarea>
+
+  <!-- Duration Type Selection -->
+  <label for="task_duration_type">Duration Type:</label>
+  <select name="task[duration_type]" id="task_duration_type" required>
+    <option value="timed">Timed</option>
+    <option value="binary">Binary (Complete/Incomplete)</option>
+  </select>
+
+  <!-- Duration Input (only shown if "Timed" is selected) -->
+  <div id="duration_input" style="display: none;">
+    <input type="number" name="task[duration]" placeholder="Duration (minutes)">
+  </div>
+
   <select name="task[frequency]" class="input-field" required>
     <option value="daily">Daily</option>
     <option value="weekly">Weekly</option>
     <option value="monthly">Monthly</option>
     <option value="yearly">Yearly</option>
   </select>
-  <input type="number" name="task[duration]" placeholder="Duration (minutes)" class="input-field" required>
   <button type="submit" class="submit-button">Create Task</button>
 </form>
 
@@ -177,5 +200,11 @@ document.querySelectorAll(".delete-task").forEach(button => {
       });
     }
   });
+});
+
+// Show/hide duration input based on duration type
+document.getElementById("task_duration_type").addEventListener("change", function() {
+  const durationInput = document.getElementById("duration_input");
+  durationInput.style.display = this.value === "timed" ? "block" : "none";
 });
 </script>
