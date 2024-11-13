@@ -5,7 +5,7 @@
     <% @tasks.each do |task| %>
       <div class="task">
         <div class="task-header">
-          <h3 class="task-title"><%= task.title %></h3>
+          <h3 class="task-title"><%= task.name %></h3>
           <span class="task-frequency"><%= task.frequency.capitalize %></span>
         </div>
         <p class="task-description"><%= task.description %></p>
@@ -33,30 +33,32 @@
 
 <h2 class="form-title">Create a New Task</h2>
 <form id="new-task-form" class="task-form">
-  <input type="text" name="name" placeholder="Task Name" required>
-  <textarea name="description" placeholder="Task Description" class="input-field"></textarea>
-  <select name="frequency" class="input-field" required>
+  <input type="text" name="task[name]" placeholder="Task Name" required>
+  <textarea name="task[description]" placeholder="Task Description" class="input-field"></textarea>
+  <select name="task[frequency]" class="input-field" required>
     <option value="daily">Daily</option>
     <option value="weekly">Weekly</option>
     <option value="monthly">Monthly</option>
     <option value="yearly">Yearly</option>
   </select>
-  <input type="number" name="duration" placeholder="Duration (minutes)" class="input-field" required>
+  <input type="number" name="task[duration]" placeholder="Duration (minutes)" class="input-field" required>
   <button type="submit" class="submit-button">Create Task</button>
 </form>
 
 <div id="messages" class="messages"></div>
 
 <script>
-// Handle task creation
+// Create a new task
 document.getElementById("new-task-form").addEventListener("submit", function(event) {
   event.preventDefault();
 
-  // Wrap the form data in a `task` object to match Rails expectations
   const formData = new FormData(event.target);
-  const taskData = {
-    task: Object.fromEntries(formData.entries())
-  };
+  const taskData = {};
+
+  // Reformat formData to match expected keys (e.g., name instead of task[name])
+  formData.forEach((value, key) => {
+    taskData[key.replace("task[", "").replace("]", "")] = value;
+  });
 
   fetch("/tasks", {
     method: "POST",
@@ -64,7 +66,9 @@ document.getElementById("new-task-form").addEventListener("submit", function(eve
       "X-CSRF-Token": document.querySelector("meta[name='csrf-token']").content,
       "Content-Type": "application/json"
     },
-    body: JSON.stringify(taskData)
+    body: JSON.stringify({
+      task: taskData
+    })
   })
   .then(response => response.json())
   .then(data => {
@@ -72,11 +76,10 @@ document.getElementById("new-task-form").addEventListener("submit", function(eve
       document.getElementById("messages").textContent = data.message;
       location.reload(); // Refresh to show the new task
     } else {
-      document.getElementById("messages").textContent = data.errors.join(", ");
+      document.getElementById("messages").innerHTML = data.errors.map(error => `<p>${error}</p>`).join("");
     }
   });
 });
-
 
 
 // Handle task completion
@@ -125,9 +128,9 @@ document.querySelectorAll(".reset-task").forEach(button => {
 document.querySelectorAll(".edit-task").forEach(button => {
   button.addEventListener("click", () => {
     const taskId = button.dataset.taskId;
-    const newTitle = prompt("Enter new task title:");
-    const newDescription = prompt("Enter new task description:");
-    const newDuration = prompt("Enter new duration (in minutes):");
+    const newTitle = prompt("Enter new task title:") || "";
+    const newDescription = prompt("Enter new task description:") || "";
+    const newDuration = prompt("Enter new duration (in minutes):") || "";
 
     fetch(`/tasks/${taskId}`, {
       method: "PATCH",
@@ -137,7 +140,7 @@ document.querySelectorAll(".edit-task").forEach(button => {
       },
       body: JSON.stringify({
         task: {
-          title: newTitle,
+          name: newTitle,
           description: newDescription,
           duration: newDuration
         }

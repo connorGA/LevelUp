@@ -1,5 +1,6 @@
 class Task < ApplicationRecord
   belongs_to :user
+  validates :name, presence: true
 
   # Enum for task frequency types
   enum frequency: { daily: 0, weekly: 1, monthly: 2, yearly: 3 }

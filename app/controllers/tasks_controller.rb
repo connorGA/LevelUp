@@ -1,76 +1,47 @@
 class TasksController < ApplicationController
-    before_action :authenticate_user! # Ensure user is logged in
-    before_action :set_task, only: [:show, :update, :complete, :reset, :destroy]  
+    before_action :set_task, only: [:complete, :reset, :update, :destroy]
   
-    # GET /tasks
-    def index
-      @tasks = current_user.tasks || [] # Initialize as an empty array if no tasks are found
-    end
-  
-    # GET /tasks/:id
-    def show
-      render json: @task
-    end
-  
-    # POST /tasks
     def create
-      @task = current_user.tasks.build(task_params)
-      if @task.save
-        render json: { task: @task, message: "Task created successfully" }, status: :created
-      else
-        render json: { errors: @task.errors.full_messages }, status: :unprocessable_entity
-      end
-    end
-  
-    # PATCH /tasks/:id
-    def update
-      if @task.update(task_params)
-        render json: { task: @task, message: "Task updated successfully" }
-      else
-        render json: { errors: @task.errors.full_messages }, status: :unprocessable_entity
-      end
-    end
-  
-    # POST /tasks/:id/complete
-    def complete
-      exp_awarded = @task.complete_task
-      if exp_awarded
-        render json: { task: @task, exp_awarded: exp_awarded, message: "Task completed and EXP awarded!" }
-      else
-        render json: { error: "Task could not be completed" }, status: :unprocessable_entity
-      end
-    end
-  
-    # POST /tasks/:id/reset
-    def reset
-      if @task.reset_task
-        render json: { task: @task, message: "Task reset successfully" }
-      else
-        render json: { error: "Task could not be reset" }, status: :unprocessable_entity
-      end
-    end
-
-    def destroy
-        if @task.destroy
-          render json: { message: "Task deleted successfully" }
+        @task = current_user.tasks.build(task_params) # Associates the task with the logged-in user
+        if @task.save
+          render json: { task: @task, message: "Task created successfully." }
         else
-          render json: { error: "Task could not be deleted" }, status: :unprocessable_entity
+          render json: { errors: @task.errors.full_messages }, status: :unprocessable_entity
         end
     end
       
   
+    def complete
+      @task.update(completed: true)
+      render json: { task: @task, message: "Task marked as completed." }
+    end
+  
+    def reset
+      @task.update(completed: false)
+      render json: { task: @task, message: "Task reset to pending." }
+    end
+  
+    def update
+      if @task.update(task_params)
+        render json: { task: @task, message: "Task updated successfully." }
+      else
+        render json: { errors: @task.errors.full_messages }, status: :unprocessable_entity
+      end
+    end
+  
+    def destroy
+      @task.destroy
+      render json: { message: "Task deleted successfully." }
+    end
+  
     private
   
     def set_task
-      @task = current_user.tasks.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-      render json: { error: "Task not found" }, status: :not_found
+      @task = Task.find(params[:id])
     end
   
     def task_params
-        params.require(:task).permit(:name, :title, :description, :frequency, :duration)
+      params.require(:task).permit(:name, :description, :frequency, :duration, :completed)
     end
-
-      
   end
   
