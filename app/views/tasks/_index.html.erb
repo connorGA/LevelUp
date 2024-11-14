@@ -73,6 +73,11 @@
 <script>
 // Create a new task
 document.getElementById("new-task-form").addEventListener("submit", function(event) {
+  if (!<%= user_signed_in? %>) {
+    alert("Please sign in to create tasks.");
+    window.location.href = "<%= new_user_session_path %>";
+    return;
+  }
   event.preventDefault();
 
   const formData = new FormData(event.target);
