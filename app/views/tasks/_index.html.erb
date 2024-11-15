@@ -1,4 +1,3 @@
-<h1 class="page-title">Your Tasks</h1>
 
 <div id="task-list">
   <% if @tasks.any? %>
@@ -41,32 +40,33 @@
   <% end %>
 </div>
 
+<div class= "create-col">
+  <h2 class="form-title">Create a New Task</h2>
+  <form id="new-task-form" class="task-form">
+    <input type="text" name="task[name]" placeholder="Task Name" required>
+    <textarea name="task[description]" placeholder="Task Description" class="input-field"></textarea>
 
-<h2 class="form-title">Create a New Task</h2>
-<form id="new-task-form" class="task-form">
-  <input type="text" name="task[name]" placeholder="Task Name" required>
-  <textarea name="task[description]" placeholder="Task Description" class="input-field"></textarea>
+    <!-- Duration Type Selection -->
+    <label for="task_duration_type">Duration Type:</label>
+    <select name="task[duration_type]" id="task_duration_type" required>
+      <option value="timed">Timed</option>
+      <option value="binary">Binary (Complete/Incomplete)</option>
+    </select>
 
-  <!-- Duration Type Selection -->
-  <label for="task_duration_type">Duration Type:</label>
-  <select name="task[duration_type]" id="task_duration_type" required>
-    <option value="timed">Timed</option>
-    <option value="binary">Binary (Complete/Incomplete)</option>
-  </select>
+    <!-- Duration Input (only shown if "Timed" is selected) -->
+    <div id="duration_input" style="display: none;">
+      <input type="number" name="task[duration]" placeholder="Duration (minutes)">
+    </div>
 
-  <!-- Duration Input (only shown if "Timed" is selected) -->
-  <div id="duration_input" style="display: none;">
-    <input type="number" name="task[duration]" placeholder="Duration (minutes)">
-  </div>
-
-  <select name="task[frequency]" class="input-field" required>
-    <option value="daily">Daily</option>
-    <option value="weekly">Weekly</option>
-    <option value="monthly">Monthly</option>
-    <option value="yearly">Yearly</option>
-  </select>
-  <button type="submit" class="submit-button">Create Task</button>
-</form>
+    <select name="task[frequency]" class="input-field" required>
+      <option value="daily">Daily</option>
+      <option value="weekly">Weekly</option>
+      <option value="monthly">Monthly</option>
+      <option value="yearly">Yearly</option>
+    </select>
+    <button type="submit" class="submit-button">Create Task</button>
+  </form>
+</div>
 
 <div id="messages" class="messages"></div>
 
