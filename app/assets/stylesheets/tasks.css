@@ -1,9 +1,70 @@
-/* General Page Styling */
-body {
-    font-family: Arial, sans-serif;
+.calendar-container {
+    position: fixed; /* Ensures it stays at the top */
+    top: 0;
+    left: 0;
+    width: 100vw; /* Full width of the viewport */
     background-color: #f5f7fa;
-    color: #333;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    z-index: 1000; /* Stays above other content */
+    border-bottom: 2px solid #ddd; /* Clear separation */
   }
+  
+  .calendar {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr); /* Spread 12 months across the width */
+    gap: 10px;
+    width: 100%;
+  }
+  
+  .calendar-month {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  
+  /* Days Inside Each Month */
+  .calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 days in a row */
+    gap: 5px;
+    margin-top: 10px;
+  }
+  
+  /* Day Styling */
+  .calendar-day {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    text-align: center;
+    font-size: 12px;
+    transition: background-color 0.3s;
+  }
+  
+  .calendar-day.current-day {
+    background-color: #027efb;
+    color: #fff;
+  }
+  
+  .calendar-day.past-day {
+    background-color: #ddd;
+  }
+  
+  .calendar-day.future-day {
+    background-color: #f9f9f9;
+  }
+  
+  
+  /* Ensuring Compatibility */
+  body, html {
+    overflow-x: auto; /* Override global rule to support horizontal scroll */
+  }
+  
   
   .page-title, .form-title {
     font-size: 24px;
@@ -17,6 +78,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    margin-top: 120px; /* Adjust for calendar height */
     margin: 20px auto;
     max-width: 600px;
   }
