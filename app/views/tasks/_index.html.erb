@@ -1,11 +1,11 @@
 <div class="calendar-container" style="position: fixed; top: 0; left: 0; width: 100vw; display: flex; justify-content: center; z-index: 1000; background-color: #f5f7fa; padding: 10px 0; border-bottom: 1px solid #ddd;">
-  <div class="calendar" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 5px; width: 100%; max-width: 100%; box-sizing: border-box;">
+  <div class="calendar" style="display: grid; grid-template-columns: repeat(12, 1fr); gap: 0; width: 100%; box-sizing: border-box;">
     <% @months.each do |month| %>
-      <div class="calendar-month" style="background: white; padding: 10px; text-align: center; border: 1px solid #ddd; border-radius: 5px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-        <h5 style="margin: 0; font-size: 14px; color: #027efb;"><%= month[:name] %></h5>
-        <div class="calendar-days" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px;">
+      <div class="calendar-month" style="background: white; padding: 5px; text-align: center; border: 1px solid #ddd; border-radius: 5px; display: flex; flex-direction: column; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); overflow: hidden; box-sizing: border-box;">
+        <h5 style="margin: 0; font-size: 14px; color: #027efb; text-align: center;"><%= month[:name] %></h5>
+        <div class="calendar-days" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 0; width: 100%; height: auto; box-sizing: border-box;">
           <% month[:days].each do |day| %>
-            <div class="calendar-day" style="margin: 2px; padding: 5px; text-align: center; font-size: 12px; background: #f9f9f9; border: 1px solid #ccc; border-radius: 3px; color: #333;">
+            <div class="calendar-day" style="padding: 2px; text-align: center; font-size: 8px; background: #f9f9f9; border: 1px solid #ccc; border-radius: 2px; color: #333; box-sizing: border-box;">
               <%= day[:number] %>
             </div>
           <% end %>
