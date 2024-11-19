@@ -27,6 +27,40 @@ class User < ApplicationRecord
     save
   end
 
+  # Add coins to the user
+  def add_coins(amount)
+    self.coins += amount
+    save
+  end
+
+  # Spend coins if the user has enough
+  def spend_coins(amount)
+    if self.coins >= amount
+      self.coins -= amount
+      save
+      true
+    else
+      false
+    end
+  end
+
+  # Add diamonds to the user
+  def add_diamonds(amount)
+    self.diamonds += amount
+    save
+  end
+
+  # Spend diamonds if the user has enough
+  def spend_diamonds(amount)
+    if self.diamonds >= amount
+      self.diamonds -= amount
+      save
+      true
+    else
+      false
+    end
+  end
+
   private
 
   # Level up and reset EXP
@@ -34,4 +68,6 @@ class User < ApplicationRecord
     self.level += 1
     self.exp -= exp_required
   end
+
+  
 end

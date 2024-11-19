@@ -7,12 +7,40 @@
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "application", media: "all" %>
     <%= stylesheet_link_tag 'tasks', media: 'all', 'data-turbo-track': 'reload' if current_page?(root_path) %>
+    <%= stylesheet_link_tag 'topBar', media: 'all', 'data-turbo-track': 'reload' %>
+
 
     <%= javascript_include_tag "application", type: "module", "data-turbo-track": "reload", defer: true %>
   </head>
 
   <body>
+
+      <div class="top-bar">
+        <!-- EXP Bar -->
+        <div class="top-bar-item exp-bar">
+          <div class="exp-progress" style="width: <%= current_user.exp_percentage %>%;">
+            <span class="exp-text">
+              Level <%= current_user.level %> | <%= current_user.exp %>/<%= current_user.exp_required %>
+            </span>
+          </div>
+        </div>
+
+        <!-- Coins -->
+        <div class="top-bar-item coins-bar">
+          <span class="coins-icon">💰</span>
+          <span class="coins-amount"><%= current_user.coins %></span>
+        </div>
+
+        <!-- Diamonds -->
+        <div class="top-bar-item diamonds-bar">
+          <span class="diamonds-icon">💎</span>
+          <span class="diamonds-amount"><%= current_user.diamonds %></span>
+        </div>
+      </div>
+
+    
     <%= yield %>
+    
   </body>
 </html>
 

@@ -1,0 +1,101 @@
+/* Top Bar Container */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(51, 51, 51, 0.9); /* Semi-transparent dark background */
+    color: #fff;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px); /* Subtle blur for a polished look */
+    height: 50px;
+  }
+  
+  /* Bar Item Containers */
+  .bar-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+  }
+  
+  /* Experience Bar */
+  .exp-bar {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    height: 20px;
+    width: 100%;
+  }
+  
+  .exp-bar-progress {
+    background-color: #4caf50; /* Green progress bar */
+    height: 100%;
+    width: 50%; /* Dynamically adjusted width */
+    border-radius: 5px 0 0 5px;
+    transition: width 0.3s ease;
+  }
+  
+  .exp-bar-text {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    line-height: 20px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  }
+  
+  /* Coins and Diamonds */
+  .currency-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    padding: 5px 10px;
+    height: 30px;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+    flex-shrink: 0;
+  }
+  
+  .currency-container span {
+    margin-left: 5px;
+  }
+  
+  .currency-container:first-of-type {
+    margin-right: 10px;
+  }
+  
+  
+@media (max-width: 768px) {
+    .top-bar {
+      flex-direction: column;
+      align-items: stretch;
+      padding: 10px;
+    }
+  
+    .top-bar-item {
+      margin: 5px 0;
+    }
+  
+    .exp-bar, .coins-bar, .diamonds-bar {
+      width: 100%;
+      font-size: 14px;
+    }
+  
+    .exp-progress {
+      font-size: 12px;
+    }
+  }
+  
