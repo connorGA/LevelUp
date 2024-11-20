@@ -1,33 +1,71 @@
-<div class="calendar-container" style="position: fixed; top: 0; left: 0; width: 100vw; display: flex; justify-content: center; z-index: 1000; background-color: #f5f7fa; padding: 0px 0;">
-  <div class="calendar" style="display: grid; grid-template-columns: repeat(12, 1fr); gap: 0; width: 100%; box-sizing: border-box;">
+<div class="main-container">
+  <!-- Task List -->
+  <div id="task-list">
+    <% if @tasks.any? %>
+      <% @tasks.each do |task| %>
+        <div class="task">
+          <div class="task-header">
+            <h3 class="task-title"><%= task.name %></h3>
+            <span class="task-frequency"><%= task.frequency.capitalize %></span>
+          </div>
+          <p class="task-description"><%= task.description %></p>
+          <p class="task-duration">
+            Duration: <% if task.duration_type == "timed" %>
+            <%= task.duration %> minutes
+            <% else %>
+            Complete/Incomplete
+            <% end %>
+          </p>
+          <p class="task-status">Status: <%= task.completed ? "Completed" : "Pending" %></p>
+          <p class="task-exp">EXP Reward: <%= task.calculate_exp %></p>
+          <button data-task-id="<%= task.id %>" class="edit-task">Edit</button>
+          <button data-task-id="<%= task.id %>" class="delete-task">Delete</button>
+          <% if task.completed %>
+            <button data-task-id="<%= task.id %>" class="reset-task action-button">Reset Task</button>
+          <% else %>
+            <button data-task-id="<%= task.id %>" class="complete-task action-button">Complete Task</button>
+          <% end %>
+        </div>
+      <% end %>
+    <% else %>
+      <p class="no-tasks">No tasks available. Create a new task to get started!</p>
+    <% end %>
+  </div>
+
+  <!-- Create Task Form -->
+  <div class="create-col">
+    <h2 class="form-title">Create a New Task</h2>
+    <form id="new-task-form" class="task-form">
+      <input type="text" name="task[name]" placeholder="Task Name" required />
+      <textarea name="task[description]" placeholder="Task Description" class="input-field"></textarea>
+      <label for="task_duration_type">Duration Type:</label>
+      <select name="task[duration_type]" id="task_duration_type" required>
+        <option value="timed">Timed</option>
+        <option value="binary">Binary (Complete/Incomplete)</option>
+      </select>
+      <div id="duration_input" style="display: none;">
+        <input type="number" name="task[duration]" placeholder="Duration (minutes)" />
+      </div>
+      <select name="task[frequency]" class="input-field" required>
+        <option value="daily">Daily</option>
+        <option value="weekly">Weekly</option>
+        <option value="monthly">Monthly</option>
+        <option value="yearly">Yearly</option>
+      </select>
+      <button type="submit" class="submit-button">Create Task</button>
+    </form>
+  </div>
+
+  <!-- Calendar -->
+  <div class="calendar-container">
     <% @months.each do |month| %>
-      <div class="calendar-month <%= month[:name].downcase %>" 
-           style="background: url('<%= asset_path("calendar/#{month[:name].downcase}.gif") %>') no-repeat center center; 
-                  background-size: cover; 
-                  padding: 5px; 
-                  text-align: center; 
-                  border: 1px solid #ddd; 
-                  border-radius: 5px; 
-                  display: flex; 
-                  flex-direction: column; 
-                  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
-                  overflow: hidden; 
-                  box-sizing: border-box; 
-                  color: #fff;">
-        <h5 style="margin: 0; font-size: 14px; text-align: center; background: rgba(0, 0, 0, 0.5); padding: 2px; border-radius: 3px;">
-          <%= month[:name] %>
-        </h5>
-        <div class="calendar-days" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 0; width: 100%; height: auto; box-sizing: border-box;">
+      <div class="calendar-month <%= month[:name].downcase %>" style="background: url('<%= asset_path("calendar/#{month[:name].downcase}.gif") %>') no-repeat center center;">
+        <h5><%= month[:name] %></h5>
+        <div class="calendar-days">
           <% month[:days].each do |day| %>
-            <div class="calendar-day" 
-                 style="padding: 2px; 
-                        text-align: center; 
-                        font-size: 8px; 
-                        background: rgba(255, 255, 255, 0.8); 
-                        border: 1px solid #ccc; 
-                        border-radius: 2px; 
-                        color: #333; 
-                        box-sizing: border-box;">
+            <div class="calendar-day <%= 'current-day' if day[:is_current_day] %>
+                                    <%= 'past-day' if day[:is_past_day] %>
+                                    <%= 'future-day' if day[:is_future_day] %>">
               <%= day[:number] %>
             </div>
           <% end %>
@@ -39,76 +77,7 @@
 
 
 
-<div id="task-list">
-  <% if @tasks.any? %>
-    <% @tasks.each do |task| %>
-      <div class="task">
-        <div class="task-header">
-          <h3 class="task-title"><%= task.name %></h3>
-          <span class="task-frequency"><%= task.frequency.capitalize %></span>
-        </div>
-        <p class="task-description"><%= task.description %></p>
-        
-        <!-- Conditionally Display Duration Based on Duration Type -->
-        <p class="task-duration">
-          Duration:
-          <% if task.duration_type == "timed" %>
-            <%= task.duration %> minutes
-          <% else %>
-            Complete/Incomplete
-          <% end %>
-        </p>
-        
-        <p class="task-status">Status: <%= task.completed ? "Completed" : "Pending" %></p>
-        <p class="task-exp">EXP Reward: <%= task.calculate_exp %></p>
 
-        <!-- Edit Button -->
-        <button data-task-id="<%= task.id %>" class="edit-task">Edit</button>
-
-        <!-- Delete Button -->
-        <button data-task-id="<%= task.id %>" class="delete-task">Delete</button>
-
-        <% if task.completed %>
-          <button data-task-id="<%= task.id %>" class="reset-task action-button">Reset Task</button>
-        <% else %>
-          <button data-task-id="<%= task.id %>" class="complete-task action-button">Complete Task</button>
-        <% end %>
-      </div>
-    <% end %>
-  <% else %>
-    <p class="no-tasks">No tasks available. Create a new task to get started!</p>
-  <% end %>
-</div>
-
-<div class= "create-col">
-  <h2 class="form-title">Create a New Task</h2>
-  <form id="new-task-form" class="task-form">
-    <input type="text" name="task[name]" placeholder="Task Name" required>
-    <textarea name="task[description]" placeholder="Task Description" class="input-field"></textarea>
-
-    <!-- Duration Type Selection -->
-    <label for="task_duration_type">Duration Type:</label>
-    <select name="task[duration_type]" id="task_duration_type" required>
-      <option value="timed">Timed</option>
-      <option value="binary">Binary (Complete/Incomplete)</option>
-    </select>
-
-    <!-- Duration Input (only shown if "Timed" is selected) -->
-    <div id="duration_input" style="display: none;">
-      <input type="number" name="task[duration]" placeholder="Duration (minutes)">
-    </div>
-
-    <select name="task[frequency]" class="input-field" required>
-      <option value="daily">Daily</option>
-      <option value="weekly">Weekly</option>
-      <option value="monthly">Monthly</option>
-      <option value="yearly">Yearly</option>
-    </select>
-    <button type="submit" class="submit-button">Create Task</button>
-  </form>
-</div>
-
-<div id="messages" class="messages"></div>
 
 <script>
 // Calendar

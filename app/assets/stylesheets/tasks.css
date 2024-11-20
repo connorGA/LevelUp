@@ -1,190 +1,132 @@
+/* General Page Styling */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+/* Task and Calendar Container */
+.main-container {
+  display: flex;
+  flex-direction: column; /* Stack tasks and calendar vertically */
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Task List Styling */
+#task-list {
+  width: 100%;
+  max-width: 800px; /* Centered and limited width */
+}
+
+.task {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+  transition: box-shadow 0.3s ease;
+}
+
+.task:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Create Task Form Styling */
+.create-col {
+  width: 100%;
+  max-width: 800px; /* Matches task list width */
+}
+
+.task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
 .calendar-container {
-    position: fixed; /* Ensures it stays at the top */
-    top: 0;
-    left: 0;
-    width: 100vw; /* Full width of the viewport */
-    background-color: #f5f7fa;
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    z-index: 1000; /* Stays above other content */
-    border-bottom: 2px solid #ddd; /* Clear separation */
-  }
-  
-  .calendar {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr); /* Spread 12 months across the width */
-    gap: 10px;
-    width: 100%;
-  }
-  
-  .calendar-month {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 10px;
-    text-align: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  
-  /* Days Inside Each Month */
-  .calendar-days {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr); /* 7 days in a row */
-    gap: 5px;
-    margin-top: 10px;
-  }
-  
-  /* Day Styling */
-  .calendar-day {
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    text-align: center;
-    font-size: 12px;
-    transition: background-color 0.3s;
-  }
-  
-  .calendar-day.current-day {
-    background-color: #027efb;
-    color: #fff;
-  }
-  
-  .calendar-day.past-day {
-    background-color: #ddd;
-  }
-  
-  .calendar-day.future-day {
-    background-color: #f9f9f9;
-  }
-  
-  
-  /* Ensuring Compatibility */
-  body, html {
-    overflow-x: auto; /* Override global rule to support horizontal scroll */
-  }
-  
-  
-  .page-title, .form-title {
-    font-size: 24px;
-    color: #027efb;
-    margin-top: 20px;
-    text-align: center;
-  }
-  
-  /* Task List Styling */
-  #task-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 120px; /* Adjust for calendar height */
-    margin: 20px auto;
-    max-width: 600px;
-  }
-  
-  .task {
-    background-color: #fff;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
-  }
-  
-  .task:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  }
-  
-  .task-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-  }
-  
-  .task-title {
-    font-size: 18px;
-    color: #027efb;
-  }
-  
-  .task-frequency {
-    font-size: 0.9em;
-    padding: 4px 8px;
-    border-radius: 5px;
-    background-color: #e3f3ff;
-    color: #027efb;
-  }
-  
-  .task-description,
-  .task-duration,
-  .task-status,
-  .task-exp {
-    font-size: 0.9em;
-    margin: 5px 0;
-    color: #555;
-  }
-  
-  .no-tasks {
-    text-align: center;
-    color: #666;
-  }
-  
-  /* Action Buttons */
-  .action-button {
-    background-color: #4caf50;
-    color: #fff;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.9em;
-    transition: background-color 0.3s ease;
-    margin-top: 10px;
-  }
-  
-  .action-button:hover {
-    background-color: #45a049;
-  }
-  
-  /* Form Styling */
-  .task-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin: 20px auto;
-    max-width: 600px;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .input-field {
-    padding: 10px;
-    font-size: 1em;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-  }
-  
-  .submit-button {
-    background-color: #027efb;
-    color: #fff;
-    font-size: 1em;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .submit-button:hover {
-    background-color: #0267d4;
-  }
-  
-  /* Messages */
-  .messages {
-    text-align: center;
-    margin-top: 15px;
-    color: #d9534f;
-  }
-  
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* Two rows of six months */
+  gap: 10px;
+  width: 100vw; /* Full width of the viewport */
+  margin: 20px 0; /* Add spacing above and below */
+  background-color: #f5f7fa; /* Optional background color */
+  padding: 10px;
+  border-top: 2px solid #ddd; /* Optional: Visual separation from tasks */
+  box-sizing: border-box; /* Ensure padding is included in width */
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* Maintain two rows of six months */
+  gap: 10px;
+  width: 100%; /* Ensure the calendar spans the container */
+  box-sizing: border-box;
+}
+
+.calendar-month {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  background-size: cover;
+  background-position: center;
+}
+
+.calendar-month.may {
+  background-size: 210% !important; /* Force the size to enlarge the background */
+}
+
+.calendar-month.july {
+  background-size: 130% !important;
+}
+
+.calendar-month.october {
+  background-size: 230% !important;
+}
+
+
+
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* 7 days per week */
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.calendar-day {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  text-align: center;
+  font-size: 12px;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #333;
+}
+
+.calendar-day.current-day {
+  background-color: #027efb;
+  color: #fff;
+}
+
+.calendar-day.past-day {
+  background-color: #ddd;
+}
+
+.calendar-day.future-day {
+  background-color: #f9f9f9;
+}
