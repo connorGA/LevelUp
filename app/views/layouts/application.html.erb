@@ -15,30 +15,7 @@
   </head>
 
   <body>
-
-<div class="top-bar">
-  <!-- EXP Bar -->
-  <div class="top-bar-item exp-bar-container">
-    <div class="exp-bar">
-      <div class="exp-bar-progress" style="width: <%= current_user.exp_percentage %>%;">
-        <span class="exp-bar-text">Level <%= current_user.level %> | <%= current_user.exp %>/<%= current_user.exp_required %></span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Coins -->
-  <div class="top-bar-item currency-container">
-    💰 <span><%= current_user.coins %></span>
-  </div>
-
-  <!-- Diamonds -->
-  <div class="top-bar-item currency-container">
-    💎 <span><%= current_user.diamonds %></span>
-  </div>
-</div>
-
-
-    
+    <%= render 'topBar/topBar' %>
     <%= yield %>
     
   </body>

@@ -1,6 +1,6 @@
 /* General Top Bar Styling */
 .top-bar {
-    background-color: red !important;
+    background-color: rgb(0, 12, 90) !important;
     position: fixed;
     top: 0;
     left: 0;
