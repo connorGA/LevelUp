@@ -1,20 +1,25 @@
 <div class="top-bar">
-  <!-- EXP Bar -->
-  <div class="top-bar-item exp-bar-container">
-    <div class="exp-bar">
-      <div class="exp-bar-progress" style="width: <%= current_user.exp_percentage %>%;">
-        <span class="exp-bar-text">Level <%= current_user.level %> | <%= current_user.exp %>/<%= current_user.exp_required %></span>
-      </div>
+    <!-- EXP Bar -->
+    <div class="exp-bar-container">
+        <div class="exp-bar-progress" style="width: <%= current_user.exp_percentage %>%;">
+        </div>
+        <span class="exp-bar-text">
+          lv.  <%= current_user.level %> <%= current_user.exp %>/<%= current_user.exp_required %> exp
+        </span>
+    </div>
+
+
+  <!-- Coins -->
+  <div class="top-bar-item currency-bar">
+    <div class="currency-bar-text">
+      💰 <span><%= current_user.coins %></span>
     </div>
   </div>
 
-  <!-- Coins -->
-  <div class="top-bar-item currency-container">
-    💰 <span><%= current_user.coins %></span>
-  </div>
-
   <!-- Diamonds -->
-  <div class="top-bar-item currency-container">
-    💎 <span><%= current_user.diamonds %></span>
+  <div class="top-bar-item currency-bar diamond-bar">
+    <div class="currency-bar-text">
+      💎 <span><%= current_user.diamonds %></span>
+    </div>
   </div>
 </div>
