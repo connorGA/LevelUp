@@ -13,29 +13,107 @@ body, html {
   flex-direction: column; /* Stack tasks and calendar vertically */
   align-items: center;
   gap: 20px;
-  padding: 20px;
+  padding: 100px 20px 20px; /* Add padding at the top to push content down */
   max-width: 1200px;
   margin: 0 auto;
 }
 
 /* Task List Styling */
 #task-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid layout */
+  gap: 20px; /* Space between task cards */
   width: 100%;
-  max-width: 800px; /* Centered and limited width */
+  max-width: 1200px; /* Centered and limited width */
+  margin-top: 450px; /* Space between the top of the page and the tasks */
 }
+
 
 .task {
   background-color: #fff;
-  padding: 15px;
+  padding: 10px; /* Reduced padding for compactness */
   border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 15px;
-  transition: box-shadow 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  font-size: 14px; /* Smaller font for compact design */
 }
 
 .task:hover {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px); /* Slight lift effect on hover */
 }
+
+/* Task Header Styling */
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.task-title {
+  font-size: 16px; /* Smaller title size */
+  color: #027efb;
+  font-weight: bold;
+}
+
+.task-frequency {
+  font-size: 12px; /* Smaller frequency tag */
+  padding: 4px 6px; /* Reduced padding */
+  border-radius: 5px;
+  background-color: #e3f3ff;
+  color: #027efb;
+  text-align: center;
+}
+
+/* Task Details Styling */
+.task-description,
+.task-duration,
+.task-status,
+.task-exp {
+  font-size: 12px;
+  color: #555;
+  margin: 4px 0; /* Tightened spacing between details */
+}
+
+/* Action Buttons */
+.action-button {
+  display: inline-block;
+  background-color: #4caf50;
+  color: #fff;
+  font-size: 12px; /* Smaller button text */
+  padding: 6px 8px; /* Reduced padding */
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 5px; /* Spacing between buttons */
+}
+
+.action-button:hover {
+  background-color: #45a049;
+  transform: scale(1.05); /* Slight enlargement on hover */
+}
+
+.edit-task,
+.delete-task {
+  background-color: #027efb; /* Distinguish edit and delete buttons */
+  margin-right: 5px; /* Space between edit and delete buttons */
+}
+
+.edit-task:hover,
+.delete-task:hover {
+  background-color: #0267d4;
+}
+
+.delete-task {
+  background-color: #f44336; /* Red for delete button */
+}
+
+.delete-task:hover {
+  background-color: #d32f2f;
+}
+
 
 /* Create Task Form Styling */
 .create-col {
