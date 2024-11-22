@@ -7,26 +7,56 @@ body, html {
   overflow-x: hidden;
 }
 
-/* Task and Calendar Container */
-.main-container {
-  display: flex;
-  flex-direction: column; /* Stack tasks and calendar vertically */
-  align-items: center;
-  gap: 20px;
-  padding: 100px 20px 20px; /* Add padding at the top to push content down */
-  max-width: 1200px;
-  margin: 0 auto;
+/* Wrapper to allow horizontal scrolling */
+#task-list-wrapper {
+  position: relative; /* Ensures tasks stay within the document flow */
+  padding-top: 750px; /* Maintain consistent spacing from the top */
+  overflow-x: auto; /* Allow horizontal scrolling */
+  white-space: nowrap; /* Prevent wrapping to the next line */
+  width: 100%; /* Full width of the viewport */
+  box-sizing: border-box;
+  margin-top: 225px;
 }
 
 /* Task List Styling */
 #task-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid layout */
-  gap: 20px; /* Space between task cards */
-  width: 100%;
-  max-width: 1200px; /* Centered and limited width */
-  margin-top: 450px; /* Space between the top of the page and the tasks */
+  grid-auto-flow: column; /* Force items to flow horizontally */
+  grid-template-rows: repeat(2, 1fr); /* Limit to two rows */
+  gap: 20px; /* Space between tasks */
+  height: 630px; /* Set height to accommodate two rows */
+  grid-auto-columns: minmax(250px, 1fr); /* Flexible width for tasks */
 }
+
+
+#task-list-wrapper::-webkit-scrollbar {
+  height: 10px;
+}
+
+#task-list-wrapper::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 5px;
+}
+
+#task-list-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
+}
+
+
+
+
+
+/* Main Container Styling */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 
 
 .task {

@@ -1,36 +1,41 @@
 <div class="main-container">
-  <!-- Task List -->
-  <div id="task-list">
-    <% if @tasks.any? %>
-      <% @tasks.each do |task| %>
-        <div class="task">
-          <div class="task-header">
-            <h3 class="task-title"><%= task.name %></h3>
-            <span class="task-frequency"><%= task.frequency.capitalize %></span>
-          </div>
-          <p class="task-description"><%= task.description %></p>
-          <p class="task-duration">
-            Duration: <% if task.duration_type == "timed" %>
-            <%= task.duration %> minutes
+  <div id="task-list-wrapper">
+    <div id="task-list">
+      <% if @tasks.any? %>
+        <% @tasks.each do |task| %>
+          <div class="task">
+            <div class="task-header">
+              <h3 class="task-title"><%= task.name %></h3>
+              <span class="task-frequency"><%= task.frequency.capitalize %></span>
+            </div>
+            <p class="task-description"><%= task.description %></p>
+            <p class="task-duration">
+              Duration:
+              <% if task.duration_type == "timed" %>
+                <%= task.duration %> minutes
+              <% else %>
+                Complete/Incomplete
+              <% end %>
+            </p>
+            <p class="task-status">Status: <%= task.completed ? "Completed" : "Pending" %></p>
+            <p class="task-exp">EXP Reward: <%= task.calculate_exp %></p>
+            <button data-task-id="<%= task.id %>" class="edit-task">Edit</button>
+            <button data-task-id="<%= task.id %>" class="delete-task">Delete</button>
+            <% if task.completed %>
+              <button data-task-id="<%= task.id %>" class="reset-task action-button">Reset Task</button>
             <% else %>
-            Complete/Incomplete
+              <button data-task-id="<%= task.id %>" class="complete-task action-button">Complete Task</button>
             <% end %>
-          </p>
-          <p class="task-status">Status: <%= task.completed ? "Completed" : "Pending" %></p>
-          <p class="task-exp">EXP Reward: <%= task.calculate_exp %></p>
-          <button data-task-id="<%= task.id %>" class="edit-task">Edit</button>
-          <button data-task-id="<%= task.id %>" class="delete-task">Delete</button>
-          <% if task.completed %>
-            <button data-task-id="<%= task.id %>" class="reset-task action-button">Reset Task</button>
-          <% else %>
-            <button data-task-id="<%= task.id %>" class="complete-task action-button">Complete Task</button>
-          <% end %>
-        </div>
+          </div>
+        <% end %>
+      <% else %>
+        <p class="no-tasks">No tasks available. Create a new task to get started!</p>
       <% end %>
-    <% else %>
-      <p class="no-tasks">No tasks available. Create a new task to get started!</p>
-    <% end %>
+    </div>
   </div>
+
+
+
 
   <!-- Create Task Form -->
   <div class="create-col">
