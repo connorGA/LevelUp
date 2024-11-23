@@ -140,6 +140,25 @@ document.getElementById("new-task-form").addEventListener("submit", function(eve
   });
 });
 
+// Sparkles for yearly tasks
+document.querySelectorAll('.task.yearly').forEach((card) => {
+  // Create multiple golden star-like sparkles
+  for (let i = 0; i < 20; i++) {
+    const sparkle = document.createElement('div');
+    sparkle.classList.add('sparkle');
+    card.appendChild(sparkle);
+
+    // Tighter range for initial position
+    sparkle.style.left = `${Math.random() * 120 - 10}%`; // Slightly outside left-right bounds
+    sparkle.style.top = `${Math.random() * 120 - 10}%`;  // Slightly outside top-bottom bounds
+    sparkle.style.animationDelay = `${Math.random() * 2}s`;
+    sparkle.style.animationDuration = `${2 + Math.random() * 1.5}s`; // Shorter duration for tighter effect
+  }
+});
+
+
+
+
 
 // Handle task completion
 document.querySelectorAll(".complete-task").forEach(button => {
