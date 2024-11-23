@@ -3,18 +3,17 @@
     <div id="task-list">
       <% if @tasks.any? %>
         <% @tasks.each do |task| %>
-          <div class="task">
+          <div class="task <%= task.frequency.downcase %>">
             <div class="task-header">
               <h3 class="task-title"><%= task.name %></h3>
               <span class="task-frequency"><%= task.frequency.capitalize %></span>
             </div>
             <p class="task-description"><%= task.description %></p>
             <p class="task-duration">
-              Duration:
-              <% if task.duration_type == "timed" %>
-                <%= task.duration %> minutes
+              Duration: <% if task.duration_type == "timed" %>
+              <%= task.duration %> minutes
               <% else %>
-                Complete/Incomplete
+              Complete/Incomplete
               <% end %>
             </p>
             <p class="task-status">Status: <%= task.completed ? "Completed" : "Pending" %></p>
