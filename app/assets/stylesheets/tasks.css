@@ -323,11 +323,12 @@ body, html {
   grid-template-columns: repeat(6, 1fr); /* Two rows of six months */
   gap: 2px;
   width: 100vw; /* Full width of the viewport */
-  margin: 20px 0; /* Add spacing above and below */
+  margin: 20px 20px; /* Add spacing above and below */
   background-color: #f5f7fa; /* Optional background color */
   padding: 10px;
   border-top: 2px solid #ddd; /* Optional: Visual separation from tasks */
   box-sizing: border-box; /* Ensure padding is included in width */
+  margin-bottom: 40px;
 }
 
 .calendar {

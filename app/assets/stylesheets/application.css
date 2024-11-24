@@ -9,27 +9,9 @@ body, html {
 }
 
 
-/* Experience Bar */
-.experience-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  background-color: #333;
-  color: #fff;
-}
 
-.level-indicator, .exp-bar {
-  flex: 1;
-}
 
-.exp-progress {
-  background-color: #4caf50;
-  height: 20px;
-  text-align: center;
-  color: #fff;
-  border-radius: 4px;
-}
+
 
 /* Carousel Styling */
 .carousel-container {
