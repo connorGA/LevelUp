@@ -31,6 +31,7 @@ body, html {
 
 /* Main Container Styling */
 .main-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -258,6 +259,8 @@ body, html {
   margin: 4px 0;
 }
 
+
+
 /* Action Buttons */
 .action-button {
   display: inline-block;
@@ -277,7 +280,83 @@ body, html {
   transform: scale(1.05);
 }
 
-.edit-task,
+/* Edit Form Styling */
+.edit-task-form {
+  display: none; /* Keep it hidden initially */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* Full width of the card */
+  height: 100%; /* Full height of the card */
+  z-index: 10; /* Ensure it overlays the task content */
+  background: rgba(255, 255, 255, 0.95); /* Subtle white background */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+/* When editing, hide the default task display */
+.task.editing .task-display {
+  display: none;
+}
+
+/* When editing, show the form */
+.task.editing .edit-task-form {
+  display: flex; /* Show the form */
+  flex-direction: column; /* Stack inputs and labels */
+  gap: 10px; /* Space between form sections */
+}
+
+/* Labels and Inputs Styling */
+.edit-task-form label {
+  font-size: 12px; /* Smaller label text */
+  color: #333;
+  margin-bottom: 2px; /* Space between label and input */
+}
+
+.edit-task-form input,
+.edit-task-form textarea,
+.edit-task-form select {
+  width: 100%; /* Use the full width of the card */
+  padding: 6px; /* Reduced padding for compact inputs */
+  font-size: 12px; /* Smaller font for better fit */
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box; /* Include padding in input size */
+}
+
+/* Buttons in the Form */
+.edit-task-form button {
+  background-color: #027efb;
+  color: #fff;
+  border: none;
+  padding: 8px; /* Adjusted padding for compact buttons */
+  font-size: 12px; /* Smaller font size */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.edit-task-form button:hover {
+  background-color: #025bb5;
+}
+
+.edit-task-form .cancel-edit {
+  background-color: #f44336;
+}
+
+.edit-task-form .cancel-edit:hover {
+  background-color: #d32f2f;
+}
+
+/* Form Sections */
+.edit-task-form .form-section {
+  display: flex;
+  flex-direction: column; /* Stack label and input */
+  gap: 4px; /* Spacing between label and input */
+}
+
 .delete-task {
   background-color: #027efb;
   margin-right: 5px;
@@ -313,8 +392,18 @@ body, html {
 }
 
 .form-title {
-  color: white;
+  color: rgb(35, 228, 245);
   margin-top: 80px;
+}
+
+.calendar-year {
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px; /* Font size for the year text */
+  color: #ffffff; /* Text color */
+  
+  font-weight: bold;
 }
 
 

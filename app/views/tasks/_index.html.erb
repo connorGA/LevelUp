@@ -3,28 +3,73 @@
     <div id="task-list">
       <% if @tasks.any? %>
         <% @tasks.each do |task| %>
-          <div class="task <%= task.frequency.downcase %>">
-            <div class="task-header">
-              <h3 class="task-title"><%= task.name %></h3>
-              <span class="task-frequency"><%= task.frequency.capitalize %></span>
-            </div>
-            <p class="task-description"><%= task.description %></p>
-            <p class="task-duration">
-              Duration: <% if task.duration_type == "timed" %>
-              <%= task.duration %> minutes
+          <div class="task <%= task.frequency.downcase %>" data-task-id="<%= task.id %>">
+            <!-- Default Task Display -->
+            <div class="task-display">
+              <div class="task-header">
+                <h3 class="task-title"><%= task.name %></h3>
+                <span class="task-frequency"><%= task.frequency.capitalize %></span>
+              </div>
+              <p class="task-description"><%= task.description %></p>
+              <p class="task-duration">
+                Duration: <% if task.duration_type == "timed" %>
+                <%= task.duration %> minutes
+                <% else %>
+                Complete/Incomplete
+                <% end %>
+              </p>
+              <p class="task-status">Status: <%= task.completed ? "Completed" : "Pending" %></p>
+              <p class="task-exp">EXP Reward: <%= task.calculate_exp %></p>
+              <button class="edit-task">Edit</button>
+              <button class="delete-task">Delete</button>
+              <% if task.completed %>
+                <button class="reset-task action-button">Reset Task</button>
               <% else %>
-              Complete/Incomplete
+                <button class="complete-task action-button">Complete Task</button>
               <% end %>
-            </p>
-            <p class="task-status">Status: <%= task.completed ? "Completed" : "Pending" %></p>
-            <p class="task-exp">EXP Reward: <%= task.calculate_exp %></p>
-            <button data-task-id="<%= task.id %>" class="edit-task">Edit</button>
-            <button data-task-id="<%= task.id %>" class="delete-task">Delete</button>
-            <% if task.completed %>
-              <button data-task-id="<%= task.id %>" class="reset-task action-button">Reset Task</button>
-            <% else %>
-              <button data-task-id="<%= task.id %>" class="complete-task action-button">Complete Task</button>
-            <% end %>
+            </div>
+
+            <!-- Hidden Edit Form -->
+            <form class="edit-task-form">
+              <div class="form-section">
+                <label for="task-name">Task Name</label>
+                <input type="text" id="task-name" name="task[name]" value="<%= task.name %>" required />
+              </div>
+
+              <div class="form-section">
+                <label for="task-description">Description</label>
+                <textarea id="task-description" name="task[description]" required><%= task.description %></textarea>
+              </div>
+
+              <div class="form-section">
+                <label for="task-duration-type">Duration Type</label>
+                <select id="task-duration-type" name="task[duration_type]" required>
+                  <option value="timed" <%= task.duration_type == "timed" ? "selected" : "" %>>Timed</option>
+                  <option value="binary" <%= task.duration_type == "binary" ? "selected" : "" %>>Complete/Incomplete</option>
+                </select>
+              </div>
+
+              <div class="form-section">
+                <label for="task-duration">Duration</label>
+                <input type="number" id="task-duration" name="task[duration]" value="<%= task.duration %>" />
+              </div>
+
+              <div class="form-section">
+                <label for="task-frequency">Frequency</label>
+                <select id="task-frequency" name="task[frequency]" required>
+                  <option value="daily" <%= task.frequency == "daily" ? "selected" : "" %>>Daily</option>
+                  <option value="weekly" <%= task.frequency == "weekly" ? "selected" : "" %>>Weekly</option>
+                  <option value="monthly" <%= task.frequency == "monthly" ? "selected" : "" %>>Monthly</option>
+                  <option value="yearly" <%= task.frequency == "yearly" ? "selected" : "" %>>Yearly</option>
+                </select>
+              </div>
+
+              <div class="form-buttons">
+                <button type="submit" class="save-edit">Save</button>
+                <button type="button" class="cancel-edit">Cancel</button>
+              </div>
+            </form>
+
           </div>
         <% end %>
       <% else %>
@@ -32,6 +77,7 @@
       <% end %>
     </div>
   </div>
+
 
 
 
@@ -44,8 +90,8 @@
       <textarea name="task[description]" placeholder="Task Description" class="input-field"></textarea>
       <label for="task_duration_type">Duration Type:</label>
       <select name="task[duration_type]" id="task_duration_type" required>
-        <option value="timed">Timed</option>
         <option value="binary">Binary (Complete/Incomplete)</option>
+        <option value="timed">Timed</option>
       </select>
       <div id="duration_input" style="display: none;">
         <input type="number" name="task[duration]" placeholder="Duration (minutes)" />
@@ -58,6 +104,7 @@
       </select>
       <button type="submit" class="submit-button">Create Task</button>
     </form>
+    <!-- <div class="calendar-year">2024</div> -->
   </div>
 
   <!-- Calendar -->
@@ -203,38 +250,70 @@ document.querySelectorAll(".reset-task").forEach(button => {
 });
 
 // Handle task edit
-document.querySelectorAll(".edit-task").forEach(button => {
-  button.addEventListener("click", () => {
-    const taskId = button.dataset.taskId;
-    const newTitle = prompt("Enter new task title:") || "";
-    const newDescription = prompt("Enter new task description:") || "";
-    const newDuration = prompt("Enter new duration (in minutes):") || "";
+document.querySelectorAll('.edit-task').forEach((button) => {
+  button.addEventListener('click', (e) => {
+    const taskCard = e.target.closest('.task');
+    const taskDisplay = taskCard.querySelector('.task-display');
+    const editForm = taskCard.querySelector('.edit-task-form');
 
-    fetch(`/tasks/${taskId}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        "X-CSRF-Token": document.querySelector("meta[name='csrf-token']").content
-      },
-      body: JSON.stringify({
-        task: {
-          name: newTitle,
-          description: newDescription,
-          duration: newDuration
-        }
-      })
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.task) {
-        alert("Task updated successfully!");
-        location.reload();
-      } else {
-        alert("Error: " + data.errors.join(", "));
-      }
-    });
+    // Toggle visibility
+    taskDisplay.style.display = 'none';
+    editForm.style.display = 'block';
   });
 });
+
+document.querySelectorAll('.cancel-edit').forEach((button) => {
+  button.addEventListener('click', (e) => {
+    const taskCard = e.target.closest('.task');
+    const taskDisplay = taskCard.querySelector('.task-display');
+    const editForm = taskCard.querySelector('.edit-task-form');
+
+    // Toggle visibility
+    editForm.style.display = 'none';
+    taskDisplay.style.display = 'block';
+  });
+});
+
+document.querySelectorAll('.edit-task-form').forEach((form) => {
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const taskCard = e.target.closest('.task');
+    const taskId = taskCard.dataset.taskId;
+    const formData = new FormData(e.target);
+
+    try {
+      const response = await fetch(`/tasks/${taskId}`, {
+        method: 'PUT',
+        body: formData,
+        headers: {
+          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content,
+        },
+      });
+
+      if (response.ok) {
+        const updatedTask = await response.json();
+
+        // Update the task display
+        taskCard.querySelector('.task-title').textContent = updatedTask.name;
+        taskCard.querySelector('.task-description').textContent = updatedTask.description;
+        taskCard.querySelector('.task-duration').textContent = `Duration: ${
+          updatedTask.duration_type === 'timed' ? `${updatedTask.duration} minutes` : 'Complete/Incomplete'
+        }`;
+        taskCard.querySelector('.task-frequency').textContent = updatedTask.frequency.capitalize();
+
+        // Switch back to display mode
+        taskCard.querySelector('.edit-task-form').style.display = 'none';
+        taskCard.querySelector('.task-display').style.display = 'block';
+      } else {
+        alert('Failed to update task.');
+      }
+    } catch (error) {
+      console.error('Error updating task:', error);
+    }
+  });
+});
+
 
 // Handle task delete
 document.querySelectorAll(".delete-task").forEach(button => {
