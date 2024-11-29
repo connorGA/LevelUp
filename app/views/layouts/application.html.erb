@@ -6,10 +6,12 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "application", media: "all" %>
-    <%= stylesheet_link_tag 'topBar', media: 'all', 'data-turbo-track': 'reload' %>
-    <%= stylesheet_link_tag 'tasks', media: 'all', 'data-turbo-track': 'reload' if current_page?(root_path) %>
-    
+    <%= stylesheet_link_tag 'topBar', media: "all", 'data-turbo-track': 'reload' %>
+    <%= stylesheet_link_tag 'tasks', media: "all", 'data-turbo-track': 'reload' if current_page?(root_path) %>
 
+    <% if devise_controller? %>
+      <%= stylesheet_link_tag 'devise', media: "all", 'data-turbo-track': 'reload' %>
+    <% end %>
 
     <%= javascript_include_tag "application", type: "module", "data-turbo-track": "reload", defer: true %>
   </head>
@@ -19,9 +21,5 @@
       <%= render 'topBar/topBar' %>
     <% end %>
     <%= yield %>
-    
   </body>
 </html>
-
-
-
