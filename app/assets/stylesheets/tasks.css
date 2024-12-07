@@ -1,5 +1,10 @@
 /* General Page Styling */
 body, html {
+  background-image: url('level_up/app/assets/images/backgrounds/purple.jpg');
+  background-size: cover; 
+  background-repeat: no-repeat; 
+  background-position: center; 
+  height: 100vh; 
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
