@@ -240,8 +240,8 @@ body, html {
 }
 
 .task-title {
-  font-size: 16px;
-  color: #027efb;
+  font-size: 25px;
+  color: #ffffff;
   font-weight: bold;
 }
 
@@ -301,6 +301,13 @@ body, html {
   box-sizing: border-box;
 }
 
+.task-display {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.3); 
+  border-radius: 8px;
+  
+
+}
 /* When editing, hide the default task display */
 .task.editing .task-display {
   display: none;
@@ -397,7 +404,7 @@ body, html {
 }
 
 .form-title {
-  color: rgb(35, 228, 245);
+  color: rgb(22, 201, 205);
   margin-top: 80px;
 }
 
