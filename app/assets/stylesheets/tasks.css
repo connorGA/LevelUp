@@ -243,7 +243,13 @@ body, html {
   font-size: 25px;
   color: #ffffff;
   font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.5); 
+  border-radius: 8px;
+  padding: 1% 7% 1% 7%;
 }
+
+
 
 .task-frequency {
   font-size: 12px;
@@ -255,13 +261,37 @@ body, html {
 }
 
 /* Task Details Styling */
-.task-description,
-.task-duration,
-.task-status,
+.task-description {
+  font-size: 12px;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.5); 
+  border-radius: 8px;
+  padding: 1% 7% 1% 7%;
+}
+.task-duration {
+  font-size: 12px;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.5); 
+  border-radius: 8px;
+  padding: 1% 7% 1% 7%;
+}
+.task-status {
+  font-size: 12px;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.5); 
+  border-radius: 8px;
+  padding: 1% 7% 1% 7%;
+}
 .task-exp {
   font-size: 12px;
-  color: #555;
-  margin: 4px 0;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.5); 
+  border-radius: 8px;
+  padding: 1% 7% 1% 7%;
 }
 
 
@@ -301,13 +331,6 @@ body, html {
   box-sizing: border-box;
 }
 
-.task-display {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-  background: rgba(0, 0, 0, 0.3); 
-  border-radius: 8px;
-  
-
-}
 /* When editing, hide the default task display */
 .task.editing .task-display {
   display: none;
