@@ -46,8 +46,13 @@ body, html {
   margin: 0 auto;
 }
 
-/* Task Styling Based on Duration with Enhanced Detail */
+.task-display {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
 
+/* Task Styling Based on Duration with Enhanced Detail */
 /* Daily Tasks: Subtle and fresh */
 .task.daily {
   background: linear-gradient(135deg, #e8f5e9, #74532b, #e8f5e9); /* Soft green gradient */
@@ -233,21 +238,26 @@ body, html {
 
 /* Task Header Styling */
 .task-header {
+  margin: 0;
+  margin-bottom: 16px;
+  padding: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
 }
 
 .task-title {
   font-size: 25px;
-  color: #ffffff;
+  color: white; /* High contrast */
   font-weight: bold;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-  background: rgba(0, 0, 0, 0.5); 
-  border-radius: 8px;
-  padding: 1% 7% 1% 7%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2));
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7); /* Soft shadow */
+  border-radius: 8px; /* Rounded corners */
+  padding: 8px 7%; /* Consistent padding */
+  margin: 0; /* Remove extra margins */
 }
+
+
 
 
 
@@ -261,57 +271,51 @@ body, html {
 }
 
 /* Task Details Styling */
+.card-box {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.4); 
+  padding: 8px 8px 8px 8px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
 .task-description {
   font-size: 12px;
   color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-  background: rgba(0, 0, 0, 0.5); 
-  border-radius: 8px;
-  padding: 1% 7% 1% 7%;
+  
+  
 }
 .task-duration {
   font-size: 12px;
   color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-  background: rgba(0, 0, 0, 0.5); 
-  border-radius: 8px;
-  padding: 1% 7% 1% 7%;
+  
+  
+  
 }
 .task-status {
   font-size: 12px;
   color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-  background: rgba(0, 0, 0, 0.5); 
-  border-radius: 8px;
-  padding: 1% 7% 1% 7%;
+  
+  
+  
 }
 .task-exp {
   font-size: 12px;
   color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-  background: rgba(0, 0, 0, 0.5); 
-  border-radius: 8px;
-  padding: 1% 7% 1% 7%;
+  
+  
+  
 }
 
 
 
 /* Action Buttons */
 .action-button {
-  display: inline-block;
-  background-color: #4caf50;
-  color: #fff;
-  font-size: 12px;
-  padding: 6px 8px;
-  border-radius: 5px;
-  border: none;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  margin-top: 5px;
 }
 
 .action-button:hover {
-  background-color: #45a049;
   transform: scale(1.05);
 }
 
@@ -362,28 +366,148 @@ body, html {
 }
 
 /* Buttons in the Form */
-.edit-task-form button {
-  background-color: #027efb;
-  color: #fff;
+.edit-task {
+  padding: 0.6em 2em;
   border: none;
-  padding: 8px; /* Adjusted padding for compact buttons */
-  font-size: 12px; /* Smaller font size */
-  border-radius: 5px;
+  outline: none;
+  color: rgb(255, 255, 255);
+  background: #111;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin: 16px 0px 8px 0px;
 }
 
-.edit-task-form button:hover {
-  background-color: #025bb5;
+.edit-task:hover {
+  transform: scale(1.05);
 }
 
-.edit-task-form .cancel-edit {
-  background-color: #f44336;
+.edit-task:before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing-button-85 20s linear infinite;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
 }
 
-.edit-task-form .cancel-edit:hover {
-  background-color: #d32f2f;
+@keyframes glowing-button-85 {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
 }
+
+.edit-task:after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #222;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+
+/* delete button */
+.action-button {
+  padding: 0.6em 2em;
+  border: none;
+  outline: none;
+  color: rgb(255, 255, 255);
+  background: #111;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.action-button:before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing-button-85 20s linear infinite;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+@keyframes glowing-button-85 {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.action-button:after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #222;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+
 
 /* Form Sections */
 .edit-task-form .form-section {
@@ -392,23 +516,7 @@ body, html {
   gap: 4px; /* Spacing between label and input */
 }
 
-.delete-task {
-  background-color: #027efb;
-  margin-right: 5px;
-}
 
-.edit-task:hover,
-.delete-task:hover {
-  background-color: #0267d4;
-}
-
-.delete-task {
-  background-color: #f44336;
-}
-
-.delete-task:hover {
-  background-color: #d32f2f;
-}
 
 /* Create Task Form Styling */
 .create-col {

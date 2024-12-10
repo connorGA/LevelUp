@@ -9,7 +9,8 @@
               <div class="task-header">
                 <h3 class="task-title"><%= task.name %></h3>
                       <span class="task-frequency"><%= task.frequency.capitalize %></span>
-                    </div>
+              </div>
+                  <div class="card-box">
                     <p class="task-description"><%= task.description %></p>
                     <p class="task-duration">
                       Duration: <% if task.duration_type == "timed" %>
@@ -20,8 +21,8 @@
                     </p>
                     <p class="task-status">Status: <%= task.completed ? "Completed" : "Pending" %></p>
                     <p class="task-exp">EXP Reward: <%= task.calculate_exp %></p>
-              <button class="edit-task">Edit</button>
-              <button class="delete-task">Delete</button>
+                  </div>
+                <button class="edit-task">Edit</button>
               <% if task.completed %>
                 <button class="reset-task action-button">Reset Task</button>
               <% else %>
@@ -66,6 +67,7 @@
 
               <div class="form-buttons">
                 <button type="submit" class="save-edit">Save</button>
+                <button class="delete-task">Delete</button>
                 <button type="button" class="cancel-edit">Cancel</button>
               </div>
             </form>
