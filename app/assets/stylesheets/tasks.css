@@ -68,6 +68,11 @@ body, html {
   position: relative;
 }
 
+.task.daily .edit-task-form {
+  background: url('/assets/card_patterns/wood.jpg') no-repeat center center;
+  background-size: cover;
+}
+
 /* Hover Effect */
 .task.daily:hover {
   background-size: cover; /* Ensure the pattern fills the entire card */
@@ -90,6 +95,11 @@ body, html {
               0 4px 8px rgba(0, 0, 0, 0.1); /* Slightly stronger shadow */
   border-radius: 12px;
   position: relative;
+}
+
+.task.task.weekly .edit-task-form {
+  background: url('/assets/card_patterns/bronze.jpg') no-repeat center center;
+  background-size: cover;
 }
 
 /* Hover Effect */
@@ -115,6 +125,11 @@ body, html {
   
   border-radius: 12px;
   position: relative;
+}
+
+.task.monthly .edit-task-form {
+  background: url('/assets/card_patterns/silver.jpeg') no-repeat center center;
+  background-size: cover;
 }
 
 /* Hover Effect */
@@ -144,6 +159,12 @@ body, html {
   position: relative;
   animation: shimmer 2s infinite; /* Shimmer animation for golden glow */
   overflow: visible; /* Allow sparkles to move outside the card bounds */
+}
+
+.task.yearly .edit-task-form {
+  background: url('/assets/card_patterns/gold.jpg') no-repeat center center;
+  background-size: cover;
+  
 }
 
 /* Hover Effect */
@@ -209,6 +230,7 @@ body, html {
 
 /* Add sparkle animations to all tasks */
 .task {
+  height: 290px;
   position: relative;
   background-size: 200%; /* Ensures gradient spans beyond the card for animation */
   padding: 15px;
