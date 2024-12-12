@@ -273,8 +273,21 @@ document.querySelectorAll('.cancel-edit').forEach((button) => {
     // Toggle visibility
     editForm.style.display = 'none';
     taskDisplay.style.display = 'block';
+
+    // Ensure buttons are stacked properly
+    const actionButtons = taskDisplay.querySelectorAll('.action-button, .edit-task, .delete-task');
+    actionButtons.forEach((btn) => {
+      btn.style.display = 'block'; // Stack buttons vertically
+      btn.style.width = '100%'; // Optional: Full width for buttons
+    });
+    // Apply specific margin styling to the edit button
+    const editButton = taskDisplay.querySelector('.edit-task');
+    if (editButton) {
+      editButton.style.margin = '24px 0px 8px 0px'; // Apply consistent spacing
+    }
   });
 });
+
 
 document.querySelectorAll('.edit-task-form').forEach((form) => {
   form.addEventListener('submit', async (e) => {
