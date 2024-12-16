@@ -15,12 +15,13 @@ body, html {
 /* Wrapper for horizontal scrolling with edge padding */
 #task-list-wrapper {
   position: relative;
-  padding: 750px 20px 0; /* Add 20px padding to the left and right */
+  padding: 750px 20px 50px; /* Add 20px padding to the left and right */
   overflow-x: auto; /* Allow horizontal scrolling */
+  overflow-y: hidden;
   white-space: nowrap; /* Prevent wrapping */
   width: 100%; /* Full width of the viewport */
   box-sizing: border-box;
-  margin-top: 225px;
+  margin-top: 250px;
 }
 
 /* Task List Styling */
