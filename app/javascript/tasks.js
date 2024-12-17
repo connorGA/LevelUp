@@ -109,14 +109,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // CANCEL Edit
       if (e.target.classList.contains("cancel-edit")) {
+        const taskCard = e.target.closest(".task");
         const taskDisplay = taskCard.querySelector(".task-display");
         const editForm = taskCard.querySelector(".edit-task-form");
-
+      
         if (taskDisplay && editForm) {
           editForm.style.display = "none";
           taskDisplay.style.display = "block";
+      
+          // Restore button formatting
+          const actionButtons = taskDisplay.querySelectorAll(".action-button, .edit-task, .delete-task");
+          actionButtons.forEach((btn) => {
+            btn.style.display = "block"; // Stack buttons vertically
+            btn.style.width = "100%"; // Full width for buttons
+          });
+      
+          const editButton = taskDisplay.querySelector(".edit-task");
+          if (editButton) {
+            editButton.style.margin = "24px 0px 8px 0px"; // Consistent spacing
+          }
         }
       }
+      
 
       // DELETE Task
       if (e.target.classList.contains("delete-task")) {
