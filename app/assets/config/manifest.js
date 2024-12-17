@@ -2,7 +2,8 @@
 //= link_directory ../stylesheets .css
 
 //= link application.js  
-//= link plot.js         
+//= link plot.js   
+//= link tasks.js      
 
 //= link_directory ../../javascript/controllers .js
 //= link_tree ../builds
