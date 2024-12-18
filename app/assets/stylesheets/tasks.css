@@ -33,6 +33,7 @@ body, html {
   height: 630px; /* Adjust height to fit two rows */
   grid-auto-columns: minmax(250px, 1fr); /* Task card sizing */
   padding: 20px 0;
+  align-items: flex-start;
 }
 
 /* Main Container Styling */
@@ -232,6 +233,7 @@ body, html {
 /* Add sparkle animations to all tasks */
 .task {
   height: 290px;
+  width: 225px;
   position: relative;
   background-size: 200%; /* Ensures gradient spans beyond the card for animation */
   padding: 15px;
