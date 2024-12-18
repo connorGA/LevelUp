@@ -30,8 +30,8 @@
     position: relative;
     width: 160px; /* Unified width */
     height: 25px; /* Unified height */
-    background-color: rgba(255, 255, 255, 0.15); /* Transparent background */
-    border: 2px solid #4caf50; /* Green border for emphasis */
+    background-color: rgba(0, 0, 0, 0.75); /* Transparent background */
+    border: 2px solid rgb(76, 175, 80); /* Green border for emphasis */
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
@@ -40,13 +40,16 @@
 /* EXP Bar Level Indicator */
 .exp-bar-level {
     position: absolute;
-    left: 10px;
-    font-size: 14px;
+    left: 10px; /* Adjust to place it visually better */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust for vertical alignment */
+    font-size: 14px; /* Ensure readability */
     font-weight: bold;
-    color: #4caf50;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
-    z-index: 3;
+    color: #ffffff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); /* Add contrast */
+    z-index: 10; /* Ensure it's above other elements */
 }
+
 
 /* EXP Bar Progress */
 .exp-bar-progress {
@@ -79,7 +82,7 @@
     justify-content: center;
     width: 160px; /* Unified width with other bars */
     height: 25px; /* Unified height */
-    background-color: rgba(255, 255, 255, 0.15); /* Transparent background */
+    background-color: rgba(0, 0, 0, 0.75); /* Transparent background */
     border: 2px solid rgba(255, 215, 0, 1); /* Gold border */
     border-radius: 12px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
@@ -96,4 +99,5 @@
 /* Diamond Bar Styling */
 .diamond-bar {
     border: 2px solid rgba(173, 216, 230, 1); /* Blue border */
+    background-color: rgba(0, 0, 0, 0.75);
 }
