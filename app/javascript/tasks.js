@@ -104,6 +104,16 @@ document.addEventListener("DOMContentLoaded", () => {
         if (taskDisplay && editForm) {
           taskDisplay.style.display = "none";
           editForm.style.display = "block";
+
+          // Ensure button formatting is correct
+          const formButtons = editForm.querySelectorAll("button");
+          formButtons.forEach((btn) => {
+            btn.style.display = "inline-block";
+            btn.style.padding = "0.5em 1em";
+            btn.style.margin = "8px auto";
+            btn.style.borderRadius = "8px";
+            btn.style.width = "fit-content";
+          });
         }
       }
 
@@ -189,6 +199,16 @@ document.addEventListener("DOMContentLoaded", () => {
               if (editButton) {
                 editButton.style.margin = "24px 0px 8px 0px";
               }
+
+              // Ensure edit form buttons retain proper styling
+              const formButtons = taskCard.querySelectorAll(".edit-task-form button");
+              formButtons.forEach((btn) => {
+                btn.style.display = "inline-block";
+                btn.style.padding = "0.5em 1em";
+                btn.style.margin = "8px auto";
+                btn.style.borderRadius = "8px";
+                btn.style.width = "fit-content";
+              });
             } else {
               alert("Failed to update task.");
             }
@@ -215,13 +235,12 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderTaskCard(task) {
     return `
       <div class="task ${task.frequency.toLowerCase()}" data-task-id="${task.id}">
-        <!-- Default Task Display -->
         <div class="task-display">
           <div class="task-header">
             <h3 class="task-title">${task.name}</h3>
-            <span class="task-frequency">${task.frequency
-              .charAt(0)
-              .toUpperCase() + task.frequency.slice(1)}</span>
+            <span class="task-frequency">${
+              task.frequency.charAt(0).toUpperCase() + task.frequency.slice(1)
+            }</span>
           </div>
           <div class="card-box">
             <p class="task-description">${task.description}</p>
@@ -244,57 +263,16 @@ document.addEventListener("DOMContentLoaded", () => {
               : `<button class="complete-task action-button">Complete Task</button>`
           }
         </div>
-  
-        <!-- Hidden Edit Form -->
         <form class="edit-task-form" style="display:none;">
           <div class="form-section">
             <label for="task-name-${task.id}">Task Name</label>
             <input type="text" name="task[name]" id="task-name-${task.id}" value="${task.name}" required />
           </div>
-  
           <div class="form-section">
             <label for="task-description-${task.id}">Description</label>
             <textarea name="task[description]" id="task-description-${task.id}" required>${task.description}</textarea>
           </div>
-  
-          <div class="form-section">
-            <label for="task-duration-type-${task.id}">Duration Type</label>
-            <select name="task[duration_type]" id="task-duration-type-${task.id}">
-              <option value="timed" ${
-                task.duration_type === "timed" ? "selected" : ""
-              }>Timed</option>
-              <option value="binary" ${
-                task.duration_type === "binary" ? "selected" : ""
-              }>Complete/Incomplete</option>
-            </select>
-          </div>
-  
-          <div class="form-section">
-            <label for="task-duration-${task.id}">Duration</label>
-            <input type="number" name="task[duration]" id="task-duration-${task.id}" value="${
-              task.duration || ""
-            }" />
-          </div>
-  
-          <div class="form-section">
-            <label for="task-frequency-${task.id}">Frequency</label>
-            <select name="task[frequency]" id="task-frequency-${task.id}">
-              <option value="daily" ${
-                task.frequency === "daily" ? "selected" : ""
-              }>Daily</option>
-              <option value="weekly" ${
-                task.frequency === "weekly" ? "selected" : ""
-              }>Weekly</option>
-              <option value="monthly" ${
-                task.frequency === "monthly" ? "selected" : ""
-              }>Monthly</option>
-              <option value="yearly" ${
-                task.frequency === "yearly" ? "selected" : ""
-              }>Yearly</option>
-            </select>
-          </div>
-  
-          <div class="form-buttons">
+          <div class="form-buttons" style="text-align: center;">
             <button type="submit" class="save-edit">Save</button>
             <button type="button" class="delete-task">Delete</button>
             <button type="button" class="cancel-edit">Cancel</button>
@@ -302,5 +280,5 @@ document.addEventListener("DOMContentLoaded", () => {
         </form>
       </div>
     `;
-  }  
+  }
 });
