@@ -109,28 +109,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // CANCEL Edit
       if (e.target.classList.contains("cancel-edit")) {
-        const taskCard = e.target.closest(".task");
         const taskDisplay = taskCard.querySelector(".task-display");
         const editForm = taskCard.querySelector(".edit-task-form");
-      
+
         if (taskDisplay && editForm) {
           editForm.style.display = "none";
           taskDisplay.style.display = "block";
-      
+
           // Restore button formatting
-          const actionButtons = taskDisplay.querySelectorAll(".action-button, .edit-task, .delete-task");
+          const actionButtons = taskDisplay.querySelectorAll(
+            ".action-button, .edit-task, .delete-task"
+          );
           actionButtons.forEach((btn) => {
-            btn.style.display = "block"; // Stack buttons vertically
-            btn.style.width = "100%"; // Full width for buttons
+            btn.style.display = "block";
+            btn.style.width = "100%";
           });
-      
+
           const editButton = taskDisplay.querySelector(".edit-task");
           if (editButton) {
-            editButton.style.margin = "24px 0px 8px 0px"; // Consistent spacing
+            editButton.style.margin = "24px 0px 8px 0px";
           }
         }
       }
-      
 
       // DELETE Task
       if (e.target.classList.contains("delete-task")) {
@@ -175,6 +175,20 @@ document.addEventListener("DOMContentLoaded", () => {
               }`;
               taskCard.querySelector(".task-display").style.display = "block";
               taskCard.querySelector(".edit-task-form").style.display = "none";
+
+              // Restore button formatting
+              const actionButtons = taskCard.querySelectorAll(
+                ".action-button, .edit-task, .delete-task"
+              );
+              actionButtons.forEach((btn) => {
+                btn.style.display = "block";
+                btn.style.width = "100%";
+              });
+
+              const editButton = taskCard.querySelector(".edit-task");
+              if (editButton) {
+                editButton.style.margin = "24px 0px 8px 0px";
+              }
             } else {
               alert("Failed to update task.");
             }
