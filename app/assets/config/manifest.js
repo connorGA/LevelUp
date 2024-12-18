@@ -3,7 +3,8 @@
 
 //= link application.js  
 //= link plot.js   
-//= link tasks.js      
+//= link tasks.js  
+//= link topBar.js    
 
 //= link_directory ../../javascript/controllers .js
 //= link_tree ../builds
