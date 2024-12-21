@@ -23,7 +23,7 @@ class Task < ApplicationRecord
     # Mark as completed and save completion time
     update(completed: true, completed_at: Time.current)
     exp_reward = calculate_exp
-    user.add_exp(exp_reward) # Assuming a method in User model to add EXP
+    user.add_exp(exp_reward)
     exp_reward
   end
 

@@ -48,6 +48,7 @@ body, html {
   bottom: 0;
   width: 100%;
   height: 60px;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* Add a subtle shadow above the bar */
 }
 
 .bottom-nav button {
@@ -60,6 +61,11 @@ body, html {
   outline: none;
   cursor: pointer;
   transition: all 0.3s ease;
+  border-right: 1px solid rgba(255, 255, 255, 0.1); /* Subtle break between buttons */
+}
+
+.bottom-nav button:last-child {
+  border-right: none; /* Remove the border for the last button */
 }
 
 .bottom-nav button:hover {
@@ -73,6 +79,7 @@ body, html {
   flex: 1.2;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
 
 /* Customization Toggle Button */
 #customization-toggle {
