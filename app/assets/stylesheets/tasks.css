@@ -21,7 +21,7 @@ body, html {
   white-space: nowrap; /* Prevent wrapping */
   width: 100%; /* Full width of the viewport */
   box-sizing: border-box;
-  margin-top: 250px;
+  margin-top: 280px;
 }
 
 /* Task List Styling */
@@ -630,16 +630,73 @@ body, html {
   flex-direction: column;
   gap: 10px;
   padding: 10px;
-  background-color: #fff;
+  background-color: #2d2d2d; /* Dark background */
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .form-title {
-  color: rgb(22, 201, 205);
-  margin-top: 80px;
+  font-size: 36px; /* Large and bold title */
+  font-weight: bold;
+  margin-top: 90px;
   margin-bottom: 20px;
+  background: linear-gradient(
+    to right,
+    rgb(22, 201, 205), /* Current blue */
+    rgb(128, 0, 128),  /* Purple */
+    rgb(255, 105, 180) /* Purplish pink */
+  );
+  -webkit-background-clip: text; /* Clip the gradient to the text */
+  -webkit-text-fill-color: transparent; /* Make text transparent to show gradient */
+  background-clip: text; /* For non-WebKit browsers */
 }
+
+
+.task-form input,
+.task-form select,
+.task-form textarea {
+  background-color: #444; /* Slightly lighter for inputs */
+  color: #fff; /* White text for contrast */
+  border: 1px solid #666; /* Subtle border */
+  border-radius: 6px;
+  padding: 8px;
+  font-size: 14px;
+}
+
+.task-form label {
+  color: #ddd; /* Light gray text for labels */
+  font-size: 14px;
+}
+
+/* Submit Button Styling */
+.submit-button {
+  padding: 10px 15px; /* Comfortable size for the button */
+  font-size: 14px; /* Standardized font size */
+  font-weight: bold; /* Emphasize the button text */
+  color: #fff; /* White text for contrast */
+  background-color: rgb(22, 201, 205); /* Matches the form title */
+  border: none; /* Remove default border */
+  border-radius: 6px; /* Rounded corners for a modern look */
+  cursor: pointer; /* Pointer cursor for interactivity */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.submit-button:hover {
+  background-color: rgb(18, 180, 190); /* Slightly darker hover effect */
+  transform: scale(1.05); /* Subtle hover scaling */
+}
+
+.submit-button:active {
+  background-color: rgb(16, 160, 170); /* Even darker active state */
+  transform: scale(1); /* No scaling on active */
+}
+
+.submit-button:disabled {
+  background-color: #888; /* Gray for disabled state */
+  color: #ccc; /* Lighter text */
+  cursor: not-allowed; /* Disabled cursor */
+}
+
 
 .calendar-year {
   position: absolute;
