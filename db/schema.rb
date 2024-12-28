@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_19_064032) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_28_173652) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -62,6 +62,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_19_064032) do
     t.integer "duration", default: 0
     t.integer "exp_reward", default: 0
     t.string "duration_type"
+    t.datetime "completed_at"
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 

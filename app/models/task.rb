@@ -37,12 +37,21 @@ class Task < ApplicationRecord
 
   # Check if a task needs to be reset based on frequency
   def frequency_reset_needed?
-    last_completed = completed_at || Time.current.beginning_of_day
+    return false unless completed_at # Ensure completed_at is set
+  
+    last_completed = completed_at
     case frequency
-    when "daily" then last_completed < Time.current.beginning_of_day
-    when "weekly" then last_completed < Time.current.beginning_of_week
-    when "monthly" then last_completed < Time.current.beginning_of_month
-    when "yearly" then last_completed < Time.current.beginning_of_year
+    when "daily"
+      last_completed < Time.current.beginning_of_day
+    when "weekly"
+      last_completed < Time.current.beginning_of_week
+    when "monthly"
+      last_completed < Time.current.beginning_of_month
+    when "yearly"
+      last_completed < Time.current.beginning_of_year
+    else
+      false
     end
   end
+  
 end

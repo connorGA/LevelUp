@@ -23,11 +23,9 @@
                     <p class="task-exp">EXP Reward: <%= task.calculate_exp %></p>
                   </div>
                 <button class="edit-task">Edit</button>
-              <% if task.completed %>
-                <button class="reset-task action-button">Reset Task</button>
-              <% else %>
-                <button class="complete-task action-button">Complete Task</button>
-              <% end %>
+                <% unless task.completed %>
+                  <button class="complete-task action-button">Complete Task</button>
+                <% end %>
             </div>
 
             <!-- Hidden Edit Form -->
