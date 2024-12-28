@@ -241,6 +241,36 @@ body, html {
   overflow: hidden;
 }
 
+.task.completed {
+  background-color: #f0f0f0; /* Grey out the background */
+  opacity: 0.8; /* Dim the card to indicate completion */
+  pointer-events: none; /* Make it unclickable */
+}
+
+/* Large Green Checkmark */
+.task.completed::before {
+  content: "✔";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 72px;
+  color: rgba(76, 175, 80, 0.5); /* Green with transparency */
+  z-index: 1;
+}
+
+/* Ensure task text is still visible */
+.task-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* Add hover effect for active tasks */
+.task:not(.completed):hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
 .task:before {
   content: '';
   position: absolute;

@@ -75,26 +75,51 @@ document.addEventListener("DOMContentLoaded", () => {
       const taskId = taskCard.dataset.taskId;
 
       // COMPLETE Task
-      if (e.target.classList.contains("complete-task")) {
-        fetch(`/tasks/${taskId}/complete`, {
-          method: "POST",
-          headers: { "X-CSRF-Token": csrfToken },
-        })
-          .then((res) => res.json())
-          .then(() => taskCard.remove())
-          .catch((error) => console.error("Error completing task:", error));
-      }
+  if (e.target.classList.contains("complete-task")) {
+    fetch(`/tasks/${taskId}/complete`, {
+      method: "POST",
+      headers: { "X-CSRF-Token": csrfToken },
+    })
+      .then((res) => res.json())
+      .then(() => {
+        // Add the "completed" class to the task card
+        taskCard.classList.add("completed");
 
-      // RESET Task
-      if (e.target.classList.contains("reset-task")) {
-        fetch(`/tasks/${taskId}/reset`, {
-          method: "POST",
-          headers: { "X-CSRF-Token": csrfToken },
-        })
-          .then((res) => res.json())
-          .then(() => taskCard.remove())
-          .catch((error) => console.error("Error resetting task:", error));
-      }
+        // Update the button
+        const completeButton = taskCard.querySelector(".complete-task");
+        if (completeButton) {
+          completeButton.textContent = "Completed";
+          completeButton.classList.add("completed-task");
+          completeButton.disabled = true;
+        }
+
+        // Optionally, you can disable other buttons if needed
+      })
+      .catch((error) => console.error("Error completing task:", error));
+  }
+
+  // RESET Task
+  if (e.target.classList.contains("reset-task")) {
+    fetch(`/tasks/${taskId}/reset`, {
+      method: "POST",
+      headers: { "X-CSRF-Token": csrfToken },
+    })
+      .then((res) => res.json())
+      .then(() => {
+        // Remove the "completed" class from the task card
+        taskCard.classList.remove("completed");
+
+        // Update the button
+        const resetButton = taskCard.querySelector(".reset-task");
+        if (resetButton) {
+          resetButton.textContent = "Complete Task";
+          resetButton.classList.remove("completed-task");
+          resetButton.disabled = false;
+        }
+      })
+      .catch((error) => console.error("Error resetting task:", error));
+  }
+
 
       // EDIT Task
       if (e.target.classList.contains("edit-task")) {
