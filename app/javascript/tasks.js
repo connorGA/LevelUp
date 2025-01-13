@@ -348,6 +348,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+
+  const scrollToFormLink = document.querySelector(".scroll-to-form");
+  const createTaskForm = document.querySelector("#new-task-form");
+
+  if (scrollToFormLink && createTaskForm) {
+    scrollToFormLink.addEventListener("click", (event) => {
+      event.preventDefault(); // Prevent default anchor behavior
+
+      createTaskForm.scrollIntoView({
+        behavior: "smooth", // Smooth scrolling effect
+        block: "center" // center form in viewport
+      });
+    });
+  }
+
   // Helper: Render Task Card
   function renderTaskCard(task) {
     return `

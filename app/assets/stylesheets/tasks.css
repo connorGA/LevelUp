@@ -24,6 +24,26 @@ body, html {
   margin-top: 280px;
 }
 
+.no-tasks {
+  font-size: 3rem; /* Large font size */
+  color: white;    /* White text color */
+  text-align: center; /* Center the text */
+  position: absolute; /* Position relative to the wrapper */
+  top: 70%; /* Move the element down to the middle of the wrapper */
+  left: 50%; /* Move the element horizontally to the center */
+  transform: translate(-50%, -50%); /* Adjust position to account for element size */
+}
+
+.scroll-to-form {
+  color: white; /* Make the link color white */
+  text-decoration: none; /* Remove underline from the link */
+  cursor: pointer; /* Show pointer cursor on hover */
+}
+
+.scroll-to-form:hover {
+  text-decoration: underline; /* Add underline on hover for accessibility */
+}
+
 /* Task List Styling */
 #task-list {
   display: grid;
