@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const csrfToken = document.querySelector("meta[name='csrf-token']").content;
-
+  const noTasksText = document.querySelector(".no-tasks");
   // Calendar Highlight
   const currentDate = new Date();
   document.querySelectorAll(".calendar-day").forEach((day) => {
@@ -149,6 +149,10 @@ document.addEventListener("DOMContentLoaded", () => {
         .then((data) => {
           if (data.task) {
             taskList.insertAdjacentHTML("beforeend", renderTaskCard(data.task));
+            // Remove or hide the "no-tasks" text
+            if (noTasksText) {
+              noTasksText.style.display = "none"; // Hide it
+            }
             newTaskForm.reset();
           } else {
             alert(data.errors.join("\n"));
