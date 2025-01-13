@@ -9,9 +9,9 @@ class Task < ApplicationRecord
   def calculate_exp
     base_exp = case frequency
                when "daily" then 10
-               when "weekly" then 50
-               when "monthly" then 200
-               when "yearly" then 1000
+               when "weekly" then 100
+               when "monthly" then 500
+               when "yearly" then 10000
                end
     base_exp + ((duration || 0) * 2) # Default to 0 if duration is nil
   end

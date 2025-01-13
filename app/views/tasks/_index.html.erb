@@ -4,7 +4,6 @@
       <% if @tasks.any? %>
         <% @tasks.each do |task| %>
           <div class="task <%= 'completed' if task.completed %> <%= task.frequency.downcase %>" data-task-id="<%= task.id %>">
-            <!-- Default Task Display -->
             <div class="task-display">
               <div class="task-header">
                 <h3 class="task-title"><%= task.name %></h3>
@@ -22,57 +21,60 @@
                 <p class="task-status">Status: <%= task.completed ? "Completed" : "Pending" %></p>
                 <p class="task-exp">EXP Reward: <%= task.calculate_exp %></p>
               </div>
+
+              <!-- Edit Button -->
+              <button class="edit-task">Edit</button>
+
+              <!-- Task Completion Buttons -->
               <% if task.completed %>
-                <!-- No Complete Button for Completed Task -->
                 <button class="completed-task action-button" disabled>Completed</button>
               <% else %>
                 <button class="complete-task action-button">Complete Task</button>
               <% end %>
             </div>
+
+            <!-- Hidden Edit Form -->
+            <form class="edit-task-form" style="display: none;">
+              <div class="form-section">
+                <label for="task-name-<%= task.id %>">Task Name</label>
+                <input type="text" id="task-name-<%= task.id %>" name="task[name]" value="<%= task.name %>" required />
+              </div>
+
+              <div class="form-section">
+                <label for="task-description-<%= task.id %>">Description</label>
+                <textarea id="task-description-<%= task.id %>" name="task[description]" required><%= task.description %></textarea>
+              </div>
+
+              <div class="form-section">
+                <label for="task-duration-type-<%= task.id %>">Duration Type</label>
+                <select id="task-duration-type-<%= task.id %>" name="task[duration_type]" required>
+                  <option value="timed" <%= task.duration_type == "timed" ? "selected" : "" %>>Timed</option>
+                  <option value="binary" <%= task.duration_type == "binary" ? "selected" : "" %>>Complete/Incomplete</option>
+                </select>
+              </div>
+
+              <div class="form-section">
+                <label for="task-duration-<%= task.id %>">Duration</label>
+                <input type="number" id="task-duration-<%= task.id %>" name="task[duration]" value="<%= task.duration %>" />
+              </div>
+
+              <div class="form-section">
+                <label for="task-frequency-<%= task.id %>">Frequency</label>
+                <select id="task-frequency-<%= task.id %>" name="task[frequency]" required>
+                  <option value="daily" <%= task.frequency == "daily" ? "selected" : "" %>>Daily</option>
+                  <option value="weekly" <%= task.frequency == "weekly" ? "selected" : "" %>>Weekly</option>
+                  <option value="monthly" <%= task.frequency == "monthly" ? "selected" : "" %>>Monthly</option>
+                  <option value="yearly" <%= task.frequency == "yearly" ? "selected" : "" %>>Yearly</option>
+                </select>
+              </div>
+
+              <div class="form-buttons">
+                <button type="submit" class="save-edit">Save</button>
+                <button class="delete-task">Delete</button>
+                <button type="button" class="cancel-edit">Cancel</button>
+              </div>
+            </form>
           </div>
-
-          <!-- Hidden Edit Form -->
-          <form class="edit-task-form">
-            <div class="form-section">
-              <label for="task-name">Task Name</label>
-              <input type="text" id="task-name" name="task[name]" value="<%= task.name %>" required />
-            </div>
-
-            <div class="form-section">
-              <label for="task-description">Description</label>
-              <textarea id="task-description" name="task[description]" required><%= task.description %></textarea>
-            </div>
-
-            <div class="form-section">
-              <label for="task-duration-type">Duration Type</label>
-              <select id="task-duration-type" name="task[duration_type]" required>
-                <option value="timed" <%= task.duration_type == "timed" ? "selected" : "" %>>Timed</option>
-                <option value="binary" <%= task.duration_type == "binary" ? "selected" : "" %>>Complete/Incomplete</option>
-              </select>
-            </div>
-
-            <div class="form-section">
-              <label for="task-duration">Duration</label>
-              <input type="number" id="task-duration" name="task[duration]" value="<%= task.duration %>" />
-            </div>
-
-            <div class="form-section">
-              <label for="task-frequency">Frequency</label>
-              <select id="task-frequency" name="task[frequency]" required>
-                <option value="daily" <%= task.frequency == "daily" ? "selected" : "" %>>Daily</option>
-                <option value="weekly" <%= task.frequency == "weekly" ? "selected" : "" %>>Weekly</option>
-                <option value="monthly" <%= task.frequency == "monthly" ? "selected" : "" %>>Monthly</option>
-                <option value="yearly" <%= task.frequency == "yearly" ? "selected" : "" %>>Yearly</option>
-              </select>
-            </div>
-
-            <div class="form-buttons">
-              <button type="submit" class="save-edit">Save</button>
-              <button class="delete-task">Delete</button>
-              <button type="button" class="cancel-edit">Cancel</button>
-            </div>
-          </form>
-
         <% end %>
       <% else %>
         <p class="no-tasks">No tasks available. Create a new task to get started!</p>

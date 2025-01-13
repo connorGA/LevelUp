@@ -30,6 +30,98 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const taskList = document.getElementById("task-list");
 
+  if (taskList) {
+    taskList.addEventListener("click", (e) => {
+      const taskCard = e.target.closest(".task");
+      if (!taskCard) return;
+    
+      // Handle Edit Button Click
+      if (e.target.classList.contains("edit-task")) {
+        const taskDisplay = taskCard.querySelector(".task-display");
+        const editForm = taskCard.querySelector(".edit-task-form");
+    
+        if (taskDisplay && editForm) {
+          console.log("Edit button clicked");
+          taskDisplay.style.display = "none";
+          editForm.style.display = "block";
+    
+          // Style form buttons
+          editForm.querySelectorAll("button").forEach((btn) => {
+            btn.style.display = "inline-block";
+            btn.style.padding = "0.5em 1em";
+            btn.style.margin = "8px auto";
+            btn.style.borderRadius = "8px";
+            btn.style.width = "fit-content";
+          });
+        } else {
+          console.error("Task display or edit form not found");
+        }
+      }
+    
+      // Handle Save Button Click
+      if (e.target.classList.contains("save-edit")) {
+        e.preventDefault();
+        const editForm = taskCard.querySelector(".edit-task-form");
+        const taskDisplay = taskCard.querySelector(".task-display");
+    
+        if (editForm && taskDisplay) {
+          const formData = new FormData(editForm);
+          const taskId = taskCard.dataset.taskId;
+    
+          fetch(`/tasks/${taskId}`, {
+            method: "PUT",
+            headers: { "X-CSRF-Token": csrfToken },
+            body: formData,
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.task) {
+                console.log("Task updated successfully", data.task);
+    
+                // Update task display with all fields
+                taskCard.querySelector(".task-title").textContent = data.task.name;
+                taskCard.querySelector(".task-description").textContent =
+                  data.task.description;
+                taskCard.querySelector(
+                  ".task-duration"
+                ).textContent = `Duration: ${
+                  data.task.duration_type === "timed"
+                    ? `${data.task.duration} minutes`
+                    : "Complete/Incomplete"
+                }`;
+    
+                // Toggle visibility
+                taskDisplay.style.display = "block";
+                editForm.style.display = "none";
+              } else {
+                alert("Failed to update task");
+              }
+            })
+            .catch((error) => {
+              console.error("Error updating task:", error);
+            });
+        } else {
+          console.error("Edit form or task display not found");
+        }
+      }
+    
+      // Handle Cancel Button Click
+      if (e.target.classList.contains("cancel-edit")) {
+        const taskDisplay = taskCard.querySelector(".task-display");
+        const editForm = taskCard.querySelector(".edit-task-form");
+    
+        if (taskDisplay && editForm) {
+          console.log("Cancel button clicked");
+          editForm.style.display = "none";
+          taskDisplay.style.display = "block";
+        } else {
+          console.error("Task display or edit form not found");
+        }
+      }
+    });
+  } 
+
+
   // CREATE Task
   const newTaskForm = document.getElementById("new-task-form");
   if (newTaskForm) {
