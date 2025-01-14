@@ -21,10 +21,21 @@ class User < ApplicationRecord
   # Add EXP and handle leveling up
   def add_exp(amount)
     self.exp += amount
-    while exp >= exp_required
-      level_up
+
+    while self.exp >= exp_required
+      Rails.logger.debug "Leveling up! Current EXP: #{self.exp}, Required EXP: #{exp_required}"
+      self.exp -= exp_required
+      self.level += 1
     end
-    save
+
+    save!
+  end
+
+
+   # Level up and reset EXP
+  def level_up
+    self.level += 1
+    self.exp -= exp_required
   end
 
   # Add coins to the user
@@ -59,10 +70,5 @@ class User < ApplicationRecord
 
   private
 
-  # Level up and reset EXP
-  def level_up
-    self.level += 1
-    self.exp -= exp_required
-  end
-
+ 
 end

@@ -13,18 +13,10 @@ class TasksController < ApplicationController
       
   
     def complete
-      if @task.complete_task
-        render json: {
-          exp: @task.user.exp,
-          exp_required: @task.user.exp_required,
-          level: @task.user.level,
-          coins: @task.user.coins,
-          diamonds: @task.user.diamonds
-        }, status: :ok
-      else
-        render json: { error: "Task could not be completed" }, status: :unprocessable_entity
-      end
+      @task.complete_task
+      render json: { message: "Task completed successfully", task: @task }
     end
+    
     
       
   
