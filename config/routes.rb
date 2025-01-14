@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   get 'plots/show'
   resources :plots, only: [:show]
 
+  # Reward Data
+  get '/user_data', to: 'users#user_data'
+
   # root
   root to: "home#index"
   

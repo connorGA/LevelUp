@@ -13,15 +13,19 @@ class TasksController < ApplicationController
       
   
     def complete
-        @task = Task.find(params[:id])
-        if @task.update(completed: true)
-          current_user.add_exp(@task.exp_reward)
-          current_user.add_coins(10) # Reward 10 coins for completing a task
-          render json: { message: "Task completed!" }
-        else
-          render json: { error: "Unable to complete task." }, status: :unprocessable_entity
-        end
+      if @task.complete_task
+        render json: {
+          exp: @task.user.exp,
+          exp_required: @task.user.exp_required,
+          level: @task.user.level,
+          coins: @task.user.coins,
+          diamonds: @task.user.diamonds
+        }, status: :ok
+      else
+        render json: { error: "Task could not be completed" }, status: :unprocessable_entity
+      end
     end
+    
       
   
     def reset

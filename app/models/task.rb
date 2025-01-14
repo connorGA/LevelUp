@@ -16,29 +16,42 @@ class Task < ApplicationRecord
     base_exp + ((duration || 0) * 2) # Default to 0 if duration is nil
   end
 
-  # Mark task as completed and award EXP to user
+  # Mark task as completed and award rewards to user
   def complete_task
     return if completed
 
     # Mark as completed and save completion time
     update(completed: true, completed_at: Time.current)
+
+    # Calculate rewards
     exp_reward = calculate_exp
-    user.add_exp(exp_reward)
-    exp_reward
+    coin_reward = exp_reward / 10
+    diamond_reward = (frequency == "yearly") ? 1 : 0
+
+    # Update user rewards
+    user.increment!(:exp, exp_reward)
+    Rails.logger.info "EXP Reward: #{exp_reward} for Task ID: #{id}"
+
+    user.increment!(:coins, coin_reward)
+    user.increment!(:diamonds, diamond_reward) if diamond_reward.positive?
+
+    
+
+    # Return rewards for frontend updates
+    { exp: exp_reward, coins: coin_reward, diamonds: diamond_reward }
+
   end
 
   # Reset task completion based on frequency
   def reset_task
     # Reset `completed` to false at the start of each new frequency cycle
-    if frequency_reset_needed?
-      update(completed: false)
-    end
+    update(completed: false) if frequency_reset_needed?
   end
 
   # Check if a task needs to be reset based on frequency
   def frequency_reset_needed?
     return false unless completed_at # Ensure completed_at is set
-  
+
     last_completed = completed_at
     case frequency
     when "daily"
@@ -53,5 +66,4 @@ class Task < ApplicationRecord
       false
     end
   end
-  
 end

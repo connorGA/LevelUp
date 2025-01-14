@@ -2,9 +2,9 @@ class User < ApplicationRecord
   # Include default devise modules for authentication
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  
-  has_many :tasks
-  
+
+  has_many :tasks, dependent: :destroy
+
   validates :username, presence: true, uniqueness: true
 
   # Calculate the required experience for the next level
@@ -15,7 +15,7 @@ class User < ApplicationRecord
   # Calculate the percentage of EXP towards the next level
   def exp_percentage
     return 0 if exp_required.zero?
-    (exp.to_f / exp_required * 100).round(2)
+    ((exp.to_f / exp_required) * 100).round(2)
   end
 
   # Add EXP and handle leveling up
@@ -35,13 +35,11 @@ class User < ApplicationRecord
 
   # Spend coins if the user has enough
   def spend_coins(amount)
-    if self.coins >= amount
-      self.coins -= amount
-      save
-      true
-    else
-      false
-    end
+    return false if amount > coins
+
+    self.coins -= amount
+    save
+    true
   end
 
   # Add diamonds to the user
@@ -52,13 +50,11 @@ class User < ApplicationRecord
 
   # Spend diamonds if the user has enough
   def spend_diamonds(amount)
-    if self.diamonds >= amount
-      self.diamonds -= amount
-      save
-      true
-    else
-      false
-    end
+    return false if amount > diamonds
+
+    self.diamonds -= amount
+    save
+    true
   end
 
   private
@@ -69,5 +65,4 @@ class User < ApplicationRecord
     self.exp -= exp_required
   end
 
-  
 end
