@@ -13,12 +13,15 @@ class TasksController < ApplicationController
       
   
     def complete
-      @task.complete_task
-      render json: { message: "Task completed successfully", task: @task }
+      if @task.complete_task
+        render json: { success: true, user: current_user.slice(:exp, :exp_required, :level, :coins, :diamonds) }
+      else
+        render json: { success: false, errors: @task.errors.full_messages }, status: :unprocessable_entity
+      end
     end
     
     
-      
+    
   
     def reset
       @task.update(completed: false)
@@ -42,7 +45,10 @@ class TasksController < ApplicationController
   
     def set_task
       @task = Task.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      render json: { success: false, errors: ["Task not found"] }, status: :not_found
     end
+    
   
     def task_params
       params.require(:task).permit(:name, :description, :frequency, :duration, :duration_type, :completed)

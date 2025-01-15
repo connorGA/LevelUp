@@ -1,13 +1,13 @@
 <div class="top-bar">
-    <!-- EXP Bar -->
-    <div class="exp-bar-container">
-        <div class="exp-bar-progress" style="width: <%= current_user.exp_percentage %>%;">
-        </div>
-        <span class="exp-bar-text">
-        Lv. <%= current_user.level %> <%= current_user.exp %> / <%= current_user.exp_required %> EXP
-        </span>
+  <!-- EXP Bar -->
+  <div class="exp-bar-container">
+    <div class="exp-bar-progress" style="width: <%= current_user.exp_percentage %>%;">
     </div>
-
+    <span class="exp-bar-level">Lv. <%= current_user.level %></span>
+    <span class="exp-bar-text">
+      <%= current_user.exp %> / <%= current_user.exp_required %> EXP
+    </span>
+  </div>
 
   <!-- Coins -->
   <div class="top-bar-item currency-bar">

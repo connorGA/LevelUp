@@ -16,25 +16,29 @@ class Task < ApplicationRecord
     base_exp + ((duration || 0) * 2) # Default to 0 if duration is nil
   end
 
+  
   # Mark task as completed and award rewards to user
   def complete_task
-    return if completed
+    if completed
+      errors.add(:base, "Task is already completed.")
+      return false
+    end
   
-    # Mark as completed and save completion time
+    # Existing logic
     update!(completed: true, completed_at: Time.current)
   
-    # Calculate rewards
     exp_reward = calculate_exp
     coin_reward = exp_reward / 10
     diamond_reward = (frequency == "yearly") ? 1 : 0
   
-    # Update user rewards
-    user.add_exp(exp_reward) # This should trigger leveling up
+    user.add_exp(exp_reward)
     user.increment!(:coins, coin_reward)
     user.increment!(:diamonds, diamond_reward) if diamond_reward.positive?
   
     Rails.logger.debug "EXP Reward: #{exp_reward} for Task ID: #{id}"
+    true
   end
+  
   
 
   # Reset task completion based on frequency
