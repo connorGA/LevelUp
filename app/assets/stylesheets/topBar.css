@@ -26,30 +26,46 @@
 .exp-bar-container {
     display: flex;
     align-items: center;
-    justify-content: center;
     position: relative;
-    width: 160px; /* Unified width */
-    height: 25px; /* Unified height */
-    background-color: rgba(0, 0, 0, 0.75); /* Transparent background */
-    border: 2px solid rgb(76, 175, 80); /* Green border for emphasis */
+    width: 160px; 
+    height: 25px; 
+    background-color: rgba(0, 0, 0, 0.75);
+    border: 2px solid rgb(76, 175, 80);
     border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    overflow: visible; /* Allow elements to overflow the container */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* EXP Bar Level Indicator */
-.exp-bar-level {
+/* Circle Level Indicator */
+.exp-bar-level-circle {
     position: absolute;
-    left: 10px; /* Adjust to place it visually better */
-    top: 50%; /* Center vertically */
-    transform: translateY(-50%); /* Adjust for vertical alignment */
-    font-size: 14px; /* Ensure readability */
-    font-weight: bold;
-    color: #ffffff;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); /* Add contrast */
-    z-index: 10; /* Ensure it's above other elements */
+    left: 10px; /* Position relative to the container */
+    top: 50%;
+    transform: translate(-50%, -50%); /* Center vertically and horizontally */
+    background: #e4bb25;
+    width: 34px; /* Keep the shape's size */
+    height: 34px; /* Match width for symmetry */
+    clip-path: polygon(
+        13% 13%, 30% 13%, 37% 0%,   50% 8%,  62% 0%,   70% 13%,
+        87% 13%, 87% 30%, 100% 37%, 92% 50%, 100% 62%, 87% 70%,
+        87% 87%, 70% 87%, 62% 100%, 50% 92%, 37% 100%, 30% 87%,
+        13% 87%, 13% 70%, 0% 62%,   8% 50%, 0% 37%,   13% 30%
+    );
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 0 2px white; /* Mimics a border following the shape */
+    z-index: 3; /* Ensure it's on top of the bar */
 }
 
+
+/* Level Text Inside Circle */
+.exp-bar-level {
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
 
 /* EXP Bar Progress */
 .exp-bar-progress {
@@ -58,7 +74,6 @@
     left: 0;
     height: 100%;
     background-color: #4caf50;
-    border-radius: 12px 0 0 12px;
     z-index: 1;
     transition: width 0.3s ease-in-out;
 }
@@ -74,6 +89,8 @@
     text-align: center;
     width: 100%;
 }
+
+
 
 /* Coins and Diamonds Styling */
 .currency-bar {

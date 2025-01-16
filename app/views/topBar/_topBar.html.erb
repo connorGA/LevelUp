@@ -1,13 +1,21 @@
 <div class="top-bar">
   <!-- EXP Bar -->
   <div class="exp-bar-container">
+    <!-- Blue Circle for Level -->
+    <div class="exp-bar-level-circle">
+        <span class="exp-bar-level"><%= current_user.level %></span>
+    </div>
+
+    <!-- Progress Bar -->
     <div class="exp-bar-progress" style="width: <%= current_user.exp_percentage %>%;">
     </div>
-    <span class="exp-bar-level">Lv. <%= current_user.level %></span>
+
+    <!-- EXP Text -->
     <span class="exp-bar-text">
       <%= current_user.exp %> / <%= current_user.exp_required %> EXP
     </span>
   </div>
+
 
   <!-- Coins -->
   <div class="top-bar-item currency-bar">
