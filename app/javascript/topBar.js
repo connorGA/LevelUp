@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Update EXP text with level
         if (expBarText) {
-          expBarText.textContent = `Lv. ${level} ${exp} / ${exp_required} EXP`;
+          expBarText.textContent = `${exp} / ${exp_required} EXP`;
         }
       })
       .catch((error) => {
