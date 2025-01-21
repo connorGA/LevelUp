@@ -35,3 +35,10 @@
 
 # Features to add
 - Task page calendar(similar to older React one built with seasons). Green highlighted days show corresponding with a selected task, or for all tasks
+
+
+# Improvements/Bugs to Fix
+- Saving task card updates dynamically causing button stlye to lose formatting prior to refreshing page
+- Longer task descriptions need to be hidden but still accessible
+- User Level not updating dynamically
+- Task card edit form text needs to be more readable
