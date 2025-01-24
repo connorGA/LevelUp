@@ -1,18 +1,68 @@
+<div id="avatar-page-content" class="avatar-container">
+  <h2>Customize Your Avatar</h2>
+  
+  <div id="avatar-customization">
+    <button id="avatar-customization-toggle">
+      <span class="button-text">Customize Avatar</span>
+      <span class="button-arrow">∴</span>
+    </button>
 
+    <div id="avatar-customization-options">
+      <h3>Outfits</h3>
+      <select id="avatar-outfit-options">
+        <option value="casual">Casual</option>
+        <option value="formal">Formal</option>
+        <option value="sporty">Sporty</option>
+      </select>
 
-<body>
-  <div class="avatar-container">
-    <div id="avatar-controls">
-      <label for="clothing">Choose Clothing:</label>
-      <select id="clothing">
-        <option value="none">None</option>
+      <h3>Accessories</h3>
+      <select id="avatar-accessory-options">
         <option value="hat">Hat</option>
-        <option value="shirt">Shirt</option>
+        <option value="glasses">Glasses</option>
+        <option value="necklace">Necklace</option>
       </select>
     </div>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="avatar.js"></script>
-</body>
+  <div id="avatar-preview">
+    <canvas id="avatar-canvas"></canvas>
+  </div>
+</div>
 
+
+<script type="module">
+  console.log("Hello from avatar/_show.html.erb");
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const toggleButton = document.getElementById("customization-toggle");
+    const options = document.getElementById("customization-options");
+    const avatarContainer = document.getElementById("avatar-container");
+
+    toggleButton.addEventListener("click", () => {
+      const isHidden = window.getComputedStyle(options).display === "none";
+      options.style.display = isHidden ? "block" : "none";
+      toggleButton.classList.toggle("active", isHidden);
+    });
+
+    # // Listen for avatar clothing selection change
+    document.getElementById("clothing-options").addEventListener("change", (event) => {
+      console.log("Clothing selected:", event.target.value);
+      avatarContainer.setAttribute("data-clothing", event.target.value);
+    });
+
+    # // Listen for avatar accessory selection change
+    document.getElementById("accessory-options").addEventListener("change", (event) => {
+      console.log("Accessory selected:", event.target.value);
+      avatarContainer.setAttribute("data-accessory", event.target.value);
+    });
+
+    # // Listen for avatar color selection change
+    document.getElementById("avatar-color-options").addEventListener("change", (event) => {
+      console.log("Avatar color selected:", event.target.value);
+      avatarContainer.style.borderColor = event.target.value;
+    });
+  });
+</script>
+
+<%= javascript_include_tag "avatar", type: "module", "data-turbo-track": "reload", defer: true %>
+<%= tag.meta name: "turbo-visit-control", content: "reload" %>
