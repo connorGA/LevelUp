@@ -4,6 +4,8 @@
 //= link application.js  
 //= link plot.js   
 //= link tasks.js  
+//= link avatar.js
+
 //= link topBar.js    
 
 //= link_directory ../../javascript/controllers .js

@@ -8,6 +8,8 @@
     <%= stylesheet_link_tag "application", media: "all" %>
     <%= stylesheet_link_tag 'topBar', media: "all", 'data-turbo-track': 'reload' %>
     <%= stylesheet_link_tag 'tasks', media: "all", 'data-turbo-track': 'reload' if current_page?(root_path) %>
+    <%= stylesheet_link_tag 'avatar', media: 'all', 'data-turbo-track': 'reload' %>
+
 
     <% if devise_controller? %>
       <%= stylesheet_link_tag 'devise', media: "all", 'data-turbo-track': 'reload' %>
@@ -15,6 +17,8 @@
 
     <%= javascript_include_tag "application", type: "module", "data-turbo-track": "reload", defer: true %>
     <%= javascript_include_tag "tasks" %>
+    <%= javascript_include_tag 'avatar', 'data-turbo-track': 'reload' %>
+
     <%= javascript_include_tag "topBar", "data-turbo-track": "reload" %>
 
 

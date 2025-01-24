@@ -14,6 +14,10 @@ Rails.application.routes.draw do
   get 'plots/show'
   resources :plots, only: [:show]
 
+  # Avatar
+  get 'avatar/show'
+  resources :avatar, only: [:show]
+
   # Reward Data
   get '/user_data', to: 'users#user_data'
 
